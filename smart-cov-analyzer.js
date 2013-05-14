@@ -1502,7 +1502,7 @@ void function( window, factory ){
 	                	covResult.scov = scov;
                 	}
                 	
-                	var srate = ssum == 0 ? 0 : scov / ssum;
+                	var srate = ssum == 0 ? 1 : scov / ssum;
                 	if(covResult)
                 		return util.round(srate * 100, 2) + "% (" + scov + "/" + ssum + ")";
                 	else return "<font class=nan>NAN</font>";
@@ -1525,7 +1525,7 @@ void function( window, factory ){
 	                	covResult.bcov = bcov;
                 	}
                 	
-                	var brate = bsum == 0 ? 0 : bcov / bsum;
+                	var brate = bsum == 0 ? 1 : bcov / bsum;
                 	
                 	if(covResult)
                 		return util.round(brate * 100, 2) + "% (" + bcov + "/" + bsum + ")";
@@ -1547,7 +1547,7 @@ void function( window, factory ){
                     	covResult.fcov = fcov;
                 	}
                 	
-                	var frate = fsum == 0 ? 0 : fcov / fsum;
+                	var frate = fsum == 0 ? 1 : fcov / fsum;
                 
                 	if(covResult)
                 		return util.round(frate * 100, 2) + "% (" + fcov + "/" + fsum + ")";
@@ -1559,7 +1559,7 @@ void function( window, factory ){
                     	var scov = covResult.scov, ssum = covResult.ssum;
                 	}
                 	
-                	var srate = ssum == 0 ? 0 : scov / ssum;
+                	var srate = ssum == 0 ? 1 : scov / ssum;
                 	
                     return Math.round(srate * 100);
                 };
@@ -1574,7 +1574,7 @@ void function( window, factory ){
                 		}
                     } );
                 	
-                	var srate = ssum == 0 ? 0 : scov / ssum;
+                	var srate = ssum == 0 ? 1 : scov / ssum;
                 	
                     return util.round(srate * 100, 2) + "% (" + scov + "/" + ssum + ")";
                 };
@@ -1589,7 +1589,7 @@ void function( window, factory ){
                 		}
                     } );
                 	
-                	var brate = bsum == 0 ? 0 : bcov / bsum;
+                	var brate = bsum == 0 ? 1 : bcov / bsum;
                 	
                     return util.round(brate * 100, 2) + "% (" + bcov + "/" + bsum + ")";
                 };
@@ -1604,7 +1604,7 @@ void function( window, factory ){
                 		}
                     } );
                 	
-                	var frate = fsum == 0 ? 0 : fcov / fsum;
+                	var frate = fsum == 0 ? 1 : fcov / fsum;
                 	
                     return util.round(frate * 100, 2) + "% (" + fcov + "/" + fsum + ")";
                 };
@@ -1619,7 +1619,7 @@ void function( window, factory ){
                 		}
                     } );
                 	
-                	var srate = ssum == 0 ? 0 : scov / ssum;
+                	var srate = ssum == 0 ? 1 : scov / ssum;
                 	
                     return Math.round(srate * 100);
                 };
