@@ -466,7 +466,7 @@ void function( window, factory ){
 
         protocolRegx = /^\w+:\/\//;
         absoluteRegx = /^\//;
-        rootRegx = /^(\w*:?\/?\/?)([\w.]+)(\/)/;
+        rootRegx = /^(\w*:?\/?\/?)([\w.]+:?[\w.]+)(\/)/;
         doubleDotRegx = /\/[^\/\.]+\/\.\.\//;
         singleDotRegx = /\/\.\//;
 
