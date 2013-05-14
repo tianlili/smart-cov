@@ -4,7 +4,7 @@
 	$filepath = $_GET[ "file" ];
 	$expires += $seconds;
 
-	if( preg_match( "/\.php/", $filepath ) )
+	if( preg_match( "/\.php/", $filepath ) || preg_match( "/^http/", $filepath )  )
 		die( "no found!" );
 
 	header( "Last-Modified: " . gmdate( 'D, d M Y H:i:s T', $now ) );
