@@ -479,6 +479,18 @@
                if (this.opts.embedSource) {
                    this.coverState.code = sourceCode.split(/\n/);
                }
+               
+               // added by tianlili 解决格式化数组多逗号的问题
+               var _json_stringify = JSON.stringify;
+               JSON.stringify = function(value) {
+                   var _array_tojson = Array.prototype.toJSON;
+                   delete Array.prototype.toJSON;
+                   var r=_json_stringify(value);
+                   Array.prototype.toJSON = _array_tojson;
+                   return r;
+               };
+               // added by tianlili
+               
                coverState = this.opts.debug ? JSON.stringify(this.coverState, undefined, 4) : JSON.stringify(this.coverState);
                code = [
                    "if (typeof %GLOBAL% === 'undefined') { %GLOBAL% = {}; }",
