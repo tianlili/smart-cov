@@ -2198,9 +2198,10 @@ void function( window, factory ){
                         setupBootstrapPatch();
 
                         elementCodeDetailHead.tabEvent.on( "active", function( index ){
-                            if( index == 1 && this.currentShown != currentSelectedCode ){
+                        	if( this.currentShown != currentSelectedCode ){
                                 this.currentShown = currentSelectedCode;
-                                View.ControlPanel.showCodeInfo( currentSelectedCode );
+                                index == 1 && View.ControlPanel.showCodeInfo( currentSelectedCode );
+                                index == 0 && View.ControlPanel.showCode( currentSelectedCode );
                             }
 
                             var tabDescs = elementCodeToolbarInner.querySelectorAll( ".tab-desc" );
