@@ -34,7 +34,7 @@ table.compact-width th{ padding: 8px 5px; }
 .tab-content>li{ display: none; position: absolute; top: 0; bottom: 0; left: 0; right: 0; }
 .tab-content>li.tab-content-active{ display: block; }
 
-#top-navbar .close{ padding: 7px 18px 0 0; }
+#top-navbar .close{ padding: 11px 18px 0 0; }
 #top-navbar .brand{ color: #333; }
 
 .main{ position: absolute; position: absolute; top: 43px; bottom: 0; left: 0; right: 0; }
