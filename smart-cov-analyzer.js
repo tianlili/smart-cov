@@ -1,10 +1,3 @@
-/** 
- * Tracker Analyzer
- * @version 1.7.9
- * @author dron
- * @create 2012-12-22
- */
-
 void function( window, factory ){
     var host;
     
@@ -27,7 +20,7 @@ void function( window, factory ){
 }( this, function( window ){
     var global, host, location, slice, floor, max, push, join, version, controllerOnLoad;
 
-    version = "1.7.9";
+    version = "1.0.0";
     global = window;
     host = global.document;
     location = global.location;
@@ -187,13 +180,13 @@ void function( window, factory ){
                 } 
             }(),
 
-            random: function(){
-                return ( Math.random() * 1e6 ) | 0;  
-            },
+//            random: function(){
+//                return ( Math.random() * 1e6 ) | 0;  
+//            },
 
-            getByteLength: function( string ){
-                return string.replace( /[^\x00-\xff]/g, "  " ).length;  
-            },
+//            getByteLength: function( string ){
+//                return string.replace( /[^\x00-\xff]/g, "  " ).length;  
+//            },
 
             makeElement: function( doc, tagName, cssText ){
                 var el;
@@ -730,21 +723,21 @@ void function( window, factory ){
         var klass;
 
         klass = function( url, content ){
-            var comboCode, beautifyCode;
+            var comboCode;
 
             Feedback.lookup( this );
             this.id = util.id();
             this.url = url;
             this.type = "";
             this.state = "normal";
-            this.rowsCount = 0;
-            this.arriveRowsCount = 0;
-            this.size = content ? util.getByteLength( content ) : -1;
+//            this.rowsCount = 0;
+//            this.arriveRowsCount = 0;
+//            this.size = content ? util.getByteLength( content ) : -1;
             this.fileName = url ? util.fileName( url ) : "-";
             this.fullUrl = url ? path.merge( pageBaseUrl, url ) : null;
             this.origContent = content || null;
-            this.lastModified = util.time();
-            this.beautifySize = -1;
+//            this.lastModified = util.time();
+//            this.beautifySize = -1;
             this.runErrors = [];
             this.syntaxErrors = [];
             // this.snippetsIdSet = {}; // 已切分成代码碎片的 id 集合
@@ -752,8 +745,8 @@ void function( window, factory ){
             this.executiveCode = "";
             this.linesViewHtml = [];
 
-            this.loadConsum =
-            this.runConsum = -1;
+//            this.loadConsum =
+//            this.runConsum = -1;
 
             this.onReady = promise.fuze();
 
@@ -766,9 +759,9 @@ void function( window, factory ){
                         this.fire( "error", "syntaxErrors" );
                     }else{
                         this.executiveCode = comboCode.getExecutiveCode();
-                        beautifyCode = comboCode.getBeautifyCode();
-                        this.beautifySize = util.getByteLength( beautifyCode );
-                        this.rowsCount = util.splitToLines( beautifyCode ).length;
+                        //beautifyCode = comboCode.getBeautifyCode();
+                        //this.beautifySize = util.getByteLength( beautifyCode );
+                        //this.rowsCount = util.splitToLines( beautifyCode ).length;
                     }
 
                     this.linesViewHtml = comboCode.getViewHtmlByLines();
@@ -777,8 +770,8 @@ void function( window, factory ){
                 }, this ) );
             }else{
                 this.executiveCode = "void function (){}";
-                this.beautifySize = this.size = 0;
-                this.rowsCount = 0;
+                //this.beautifySize = this.size = 0;
+                //this.rowsCount = 0;
                 this.linesViewHtml = [];
                 this.setState( "empty" );
                 this.onReady.fire();
@@ -797,7 +790,7 @@ void function( window, factory ){
 
             addError: function( message ){
                 this.runErrors.push( new Error( message ) );
-                this.lastModified = util.time();
+                //this.lastModified = util.time();
                 this.fire( "error", "runErrors" );
             }
         } );
@@ -806,15 +799,14 @@ void function( window, factory ){
     }();
 
     var ComboCode = function(){
-        var klass, closeTagRegx, viewHtmlRegx, executiveCodeRegx, comboCodeBoundaryRegx, 
-            lineFirstIdRegx, topLocationToRegx;
+        var klass, closeTagRegx, viewHtmlRegx, executiveCodeRegx, comboCodeBoundaryRegx, topLocationToRegx;
 
         closeTagRegx = /<\/(\w{0,10})>/g;
 
-        viewHtmlRegx = /\{<\}(<!-- TRACKERINJECTHTML -->.*?)\{>\}/g;
-        executiveCodeRegx = /\{<\}\/\* TRACKERINJECTJS \*\/.*?\{>\}/g;
-        comboCodeBoundaryRegx = /\{(?:<|>)\}/g;
-        lineFirstIdRegx = /id=ckey\-(\d+)/;
+//        viewHtmlRegx = /\{<\}(<!-- TRACKERINJECTHTML -->.*?)\{>\}/g;
+//        executiveCodeRegx = /\{<\}\/\* TRACKERINJECTJS \*\/.*?\{>\}/g;
+//        comboCodeBoundaryRegx = /\{(?:<|>)\}/g;
+//        lineFirstIdRegx = /id=ckey\-(\d+)/;
         topLocationToRegx = /(\s*)(top)(\.location\s*=)(?!=)/g;
 
         klass = function( CodeInstance ){
@@ -836,23 +828,23 @@ void function( window, factory ){
         };
 
         klass.prototype = Event.bind( {
-            getCode: function(){
-                return this.code;
-            },
+//            getCode: function(){
+//                return this.code;
+//            },
 
-            getBeautifyCode: function(){
-                var code = this.code;
-                code = code.replace( viewHtmlRegx, "" );
-                code = code.replace( executiveCodeRegx, "" );
-                code = code.replace( comboCodeBoundaryRegx, "" );
-                return code;
-            },
+//            getBeautifyCode: function(){
+//                var code = this.code;
+//                code = code.replace( viewHtmlRegx, "" );
+//                code = code.replace( executiveCodeRegx, "" );
+//                code = code.replace( comboCodeBoundaryRegx, "" );
+//                return code;
+//            },
 
             getExecutiveCode: function(){
                 var code = this.code;
 
-                code = code.replace( viewHtmlRegx, "" );
-                code = code.replace( comboCodeBoundaryRegx, "" );
+//                code = code.replace( viewHtmlRegx, "" );
+//                code = code.replace( comboCodeBoundaryRegx, "" );
                 code = code.replace( closeTagRegx, function( s, a ){
                     return "<\\/" + a + ">";
                 } );
@@ -872,22 +864,22 @@ void function( window, factory ){
 
                 code = this.CodeInstance.origContent;
 
-                code = code.replace( viewHtmlRegx, function( s, a ){
-                    return a.replace( /</g, "\x00" ).replace( />/g, "\x01" );
-                } );
+//                code = code.replace( viewHtmlRegx, function( s, a ){
+//                    return a.replace( /</g, "\x00" ).replace( />/g, "\x01" );
+//                } );
 
-                code = code.replace( executiveCodeRegx, "" );
-                code = code.replace( comboCodeBoundaryRegx, "" );
+//                code = code.replace( executiveCodeRegx, "" );
+//                code = code.replace( comboCodeBoundaryRegx, "" );
                 lines = util.splitToLines( code );
 
-                util.forEach( lines, function( line, index ){
-                    var firstId;
-
-                    firstId = line.match( lineFirstIdRegx );
-
-                    if( firstId )
-                        StatusPool.beginOfLineSnippetPut( firstId[1] );
-                } );
+//                util.forEach( lines, function( line, index ){
+//                    var firstId;
+//
+//                    firstId = line.match( lineFirstIdRegx );
+//
+//                    if( firstId )
+//                        StatusPool.beginOfLineSnippetPut( firstId[1] );
+//                } );
 
                 return lines;
             }
@@ -954,7 +946,7 @@ void function( window, factory ){
                     "<html>",
                     "<head>",
                         "<meta charset='@{charset}'>",
-                        "<meta name='description' content='ucren-tracker-frame'>",
+                        "<meta name='description' content='smart-cov-frame'>",
                         "<title>@{title}</title>",
                     "</head>",
                     "<frameset rows='*,0' framespacing='0' frameborder='no'>",
@@ -969,8 +961,7 @@ void function( window, factory ){
                     "<html>",
                     "<head>",
                         "<meta charset='@{charset}'>",
-                        "<meta name='author' content='dron'>",
-                        "<title>Tracker!</title>",
+                        "<title>smart-cov</title>",
                         "<link href='@{cachePhp}./bootstrap/css/bootstrap.min.css&amp;version=2013041602' type='text/css' rel='stylesheet' />",
                         "<link href='@{cachePhp}./controller-resources/controller.css&amp;version=20130422' type='text/css' rel='stylesheet' />",
                     "</head>",
@@ -995,7 +986,7 @@ void function( window, factory ){
                     "<div id='top-navbar' class='navbar'>",
                         "<div class='navbar-inner'>",
                             "<button class='close pull-left' action='frame#close'>&times;</button>",
-                            "<a class='brand'>Tracker</a>",
+                            "<a class='brand'>smart-cov</a>",
                             "<ul id='top-nav' class='nav pull-left' data-target='pages'>",
                                 "<li class='active'><a href='' onclick='return false'>&#20195;&#30721;&#21015;&#34920;</a></li>",
                             "</ul>",
@@ -1118,11 +1109,10 @@ void function( window, factory ){
                     "<div id='dialog-about' class='modal hide fade in'>",
                         "<div class='modal-header'>",
                             "<button type='button' class='close' data-dismiss='modal' aria-hidden='true'>&times;</button>",
-                            "<h3>Tracker</h3>",
+                            "<h3>smart-cov</h3>",
                         "</div>",
                         "<div class='modal-body'>",
                             "<p>&#24403;&#21069;&#29256;&#26412;&#65306;@{version}</p>",
-                            "<p>&#25480;&#26435;&#32473;&#65306;@{uid}</p>",
                         "</div>",
                         "<div class='modal-footer'>",
                             "<a href='#' onclick='return false;' class='btn btn-primary'>&#30830;&#23450;</a>",
@@ -1723,14 +1713,14 @@ void function( window, factory ){
 
                 var asnyShowCode = function(){
                     var timer, timeout, interval, prepare, partCount, nowIndex, init,
-                        currentDisposeLines, gutterEl, linesEl, regx1, regx2, ckeyIdRegx, result, 
+                        currentDisposeLines, gutterEl, linesEl, regx1, regx2, result, 
                         linesCount, h1, h2;
 
                     timeout = 1;
                     partCount = 100;
                     regx1 = /\u0001/g;
                     regx2 = /\u0002/g;
-                    ckeyIdRegx = /id=ckey-(\d+)/g;
+//                    ckeyIdRegx = /id=ckey-(\d+)/g;
                     h1 = [];
                     h2 = [];
 
@@ -2198,7 +2188,7 @@ void function( window, factory ){
                         setupBootstrapPatch();
 
                         elementCodeDetailHead.tabEvent.on( "active", function( index ){
-                        	if( this.currentShown != currentSelectedCode ){
+                            if( this.currentShown != currentSelectedCode ){
                                 this.currentShown = currentSelectedCode;
                                 index == 1 && View.ControlPanel.showCodeInfo( currentSelectedCode );
                                 index == 0 && View.ControlPanel.showCode( currentSelectedCode );
@@ -2220,9 +2210,8 @@ void function( window, factory ){
     }();
 
     var Feedback = function(){
-        var urlBase, messageBase, url, runErrors, syntaxErrors, timer, timeout, getUrl, me, tt, uid,
-            autoStartTimer, autoStartTimeout, started, codeCount, sended, startTime,
-            analysisTime, panelMode;
+        var urlBase, messageBase, url, runErrors, syntaxErrors, timer, timeout, me, tt, uid,
+            autoStartTimer, autoStartTimeout, started, codeCount, sended, startTime, panelMode;
 
         messageBase = "Tracker: ";
         url = location.href;
@@ -2234,27 +2223,27 @@ void function( window, factory ){
         timeout = 2e3;
         autoStartTimeout = 1e4;
         startTime = util.time();
-        analysisTime = 0;
+//        analysisTime = 0;
         panelMode = "embed";
 
-        getUrl = function(){
-            var errors, message;
-            
-            errors = [ runErrors, syntaxErrors ];
-            message = encodeURIComponent( [ 
-                messageBase, 
-                "[ Browser ]", util.browser.name, 
-                "[ User ]", tt, uid,
-                "[ Codes ]", codeCount,
-                "[ Errors ]", errors.join( " " ),
-                "[ Controller ]", View.ControlFrame.state, panelMode,
-                "[ AnalysisTime ]", analysisTime,
-                "[ Stay ]", ( ( util.time() - startTime ) / 1000 ).toFixed( 1 ) + "s",
-                "[ Version ]", version,
-                "[ Url ]", url ].join( " " ) );
-
-            return urlBase + message;
-        };
+//        getUrl = function(){
+//            var errors, message;
+//            
+//            errors = [ runErrors, syntaxErrors ];
+//            message = encodeURIComponent( [ 
+//                messageBase, 
+//                "[ Browser ]", util.browser.name, 
+//                "[ User ]", tt, uid,
+//                "[ Codes ]", codeCount,
+//                "[ Errors ]", errors.join( " " ),
+//                "[ Controller ]", View.ControlFrame.state, panelMode,
+//                "[ AnalysisTime ]", analysisTime,
+//                "[ Stay ]", ( ( util.time() - startTime ) / 1000 ).toFixed( 1 ) + "s",
+//                "[ Version ]", version,
+//                "[ Url ]", url ].join( " " ) );
+//
+//            return urlBase + message;
+//        };
 
         return me = {
             lookup: function( code ){
@@ -2285,9 +2274,9 @@ void function( window, factory ){
                 panelMode = mode;
             },
 
-            setAnalysisEnd: function(){
-                analysisTime = ( ( util.time() - startTime ) / 1000 ).toFixed( 1 ) + "s";
-            }
+//            setAnalysisEnd: function(){
+//                analysisTime = ( ( util.time() - startTime ) / 1000 ).toFixed( 1 ) + "s";
+//            }
         }
     }();
 
@@ -2330,49 +2319,49 @@ void function( window, factory ){
         tempDocument = null;
     };
 
-    var StatusPool = host.StatusPool = function(){
-        var arrivedSnippetCache, snippetToCodeCache, beginOfLineSnippetCache, code, i, id, l;
-
-        arrivedSnippetCache = {}; // 已到达的代码碎片池（所有代码）
-        snippetToCodeCache = {}; // 代码碎片到代码的映射池
-        beginOfLineSnippetCache = {}; // 处于行首的代码碎片池（所有代码）
-
-        return {
-            arrivedSnippetPut: function( id ){
-                if( !arrivedSnippetCache[ id ] ){
-                    arrivedSnippetCache[ id ] = 1;
-
-                    if( beginOfLineSnippetCache[ id ] && ( code = snippetToCodeCache[ id ] ) ){
-                        code.arriveRowsCount ++;
-                        code.lastModified = util.time();
-                    }
-                }
-            },
-
-            arrivedSnippetGet: function( id ){
-                return arrivedSnippetCache[ id ];
-            },
-
-            snippetToCodePut: function( id, codeIns ){
-                if( !snippetToCodeCache[ id ] )
-                    snippetToCodeCache[ id ] = codeIns;
-            },
-
-            snippetToCodeGet: function( id ){
-                return snippetToCodeCache[ id ];
-            },
-
-            beginOfLineSnippetPut: function( /* id, id, ... */ ){
-                for( i = 0, l = arguments.length; i < l; i ++ )
-                    if( !beginOfLineSnippetCache[ id = arguments[ i ] ] )
-                        beginOfLineSnippetCache[ id ] = 1;
-            },
-
-            beginOfLineSnippetGet: function( id ){
-                return beginOfLineSnippetCache[ id ];
-            }
-        }
-    }();
+//    var StatusPool = host.StatusPool = function(){
+//        var arrivedSnippetCache, snippetToCodeCache, beginOfLineSnippetCache, code, i, id, l;
+//
+//        arrivedSnippetCache = {}; // 已到达的代码碎片池（所有代码）
+//        snippetToCodeCache = {}; // 代码碎片到代码的映射池
+//        beginOfLineSnippetCache = {}; // 处于行首的代码碎片池（所有代码）
+//
+//        return {
+//            arrivedSnippetPut: function( id ){
+//                if( !arrivedSnippetCache[ id ] ){
+//                    arrivedSnippetCache[ id ] = 1;
+//
+//                    if( beginOfLineSnippetCache[ id ] && ( code = snippetToCodeCache[ id ] ) ){
+////                        code.arriveRowsCount ++;
+//                        //code.lastModified = util.time();
+//                    }
+//                }
+//            },
+//
+//            arrivedSnippetGet: function( id ){
+//                return arrivedSnippetCache[ id ];
+//            },
+//
+//            snippetToCodePut: function( id, codeIns ){
+//                if( !snippetToCodeCache[ id ] )
+//                    snippetToCodeCache[ id ] = codeIns;
+//            },
+//
+//            snippetToCodeGet: function( id ){
+//                return snippetToCodeCache[ id ];
+//            },
+//
+//            beginOfLineSnippetPut: function( /* id, id, ... */ ){
+//                for( i = 0, l = arguments.length; i < l; i ++ )
+//                    if( !beginOfLineSnippetCache[ id = arguments[ i ] ] )
+//                        beginOfLineSnippetCache[ id ] = 1;
+//            },
+//
+//            beginOfLineSnippetGet: function( id ){
+//                return beginOfLineSnippetCache[ id ];
+//            }
+//        }
+//    }();
     
     //在源码上加覆盖标记 start
     function InsertionText(text, consumeBlanks) {
@@ -2651,7 +2640,7 @@ void function( window, factory ){
                     code = new Code( url, content );
 
                     code.setType( "append" );
-                    code.loadConsum = data.consum;
+//                    code.loadConsum = data.consum;
                     CodeList.add( code );
 
                     node.removeAttribute( "src" );
@@ -2690,23 +2679,23 @@ void function( window, factory ){
             };
         };
 
-        // var overideAttributeFunction = function( fn ){
-        //     return function(){
-        //         var args;
-
-        //         args = slice.apply( arguments );
-
-        //         if( this.nodeName != "SCRIPT" )
-        //             return fn.apply( this, args );
-
-        //         if( args[0].toLowerCase() == "src" && 
-        //             this.hasAttribute( "tracker-src" ) &&
-        //             !this.hasAttribute( "src" ) )
-        //             args[0] = "tracker-src";
-
-        //         return fn.apply( this, args );
-        //     }  
-        // };
+//         var overideAttributeFunction = function( fn ){
+//             return function(){
+//                 var args;
+//
+//                 args = slice.apply( arguments );
+//
+//                 if( this.nodeName != "SCRIPT" )
+//                     return fn.apply( this, args );
+//
+//                 if( args[0].toLowerCase() == "src" && 
+//                     this.hasAttribute( "tracker-src" ) &&
+//                     !this.hasAttribute( "src" ) )
+//                     args[0] = "tracker-src";
+//
+//                 return fn.apply( this, args );
+//             }  
+//         };
 
         check = function( item, name ){
             if( item && item.prototype && item.prototype[ name ] )
@@ -2723,24 +2712,24 @@ void function( window, factory ){
         util.forEach( checklist, function( object ){
             check( object, "appendChild" );
             check( object, "insertBefore" );
-            // check( object, "getAttribute" );
+//             check( object, "getAttribute" );
         } );
 
         // __tracker__Cache = {};
 
-        window.__tracker__ = function( id /* , id, id, ... */ ){
-            // a = join.call( arguments, "," );
-            // if( __tracker__Cache[ a ] )
-            //     return ;
-            // __tracker__Cache[ a ] = 1;
-            // for( i = 0, l = arguments.length; i < l; i ++ )
-            //     StatusPool.arrivedSnippetPut( arguments[ i ] );
-            i = 0;
-            l = arguments.length;
-            do{
-                StatusPool.arrivedSnippetPut( arguments[ i ++ ] );
-            }while( i < l );
-        };
+//        window.__tracker__ = function( id /* , id, id, ... */ ){
+//            // a = join.call( arguments, "," );
+//            // if( __tracker__Cache[ a ] )
+//            //     return ;
+//            // __tracker__Cache[ a ] = 1;
+//            // for( i = 0, l = arguments.length; i < l; i ++ )
+//            //     StatusPool.arrivedSnippetPut( arguments[ i ] );
+//            i = 0;
+//            l = arguments.length;
+//            do{
+//                StatusPool.arrivedSnippetPut( arguments[ i ++ ] );
+//            }while( i < l );
+//        };
 
         window.__trackerError__ = function( codeId, msg ){
             CodeList.get( codeId ).addError( msg );
@@ -2769,18 +2758,18 @@ void function( window, factory ){
             }, 0 );
 
             code = CodeList.get( codeId );
-            code._startTime = new Date();
+            //code._startTime = new Date();
         };
 
         window.__trackerScriptEnd__ = function( codeId ){
-            var code, endTime;
+            var code;
 
-            endTime = new Date();
+            //endTime = new Date();
             code = CodeList.get( codeId );
-            code.runConsum = endTime.getTime() - code._startTime.getTime();
+            //code.runConsum = endTime.getTime() - code._startTime.getTime();
             // TODO: 此值虚高，因为钩子运行本身也产生耗时，需要扣除钩子时间才准确
-            delete code._startTime;
-            code.lastModified = util.time();
+            //delete code._startTime;
+            //code.lastModified = util.time();
         };
 
         window.onbeforeunload = function(){
@@ -2789,97 +2778,97 @@ void function( window, factory ){
         };
     };
 
-    var Tracker = function( host ){
-        var cmd = function( cmd ){
-            var n = arguments[1];
-            switch( cmd ){
-                case "code":
-                    return typeof n != "undefined" ?
-                        CodeList.get( n ) : CodeList.list();
-                default:
-                    return "no such command";
-            }
-        };
-
-        var page = function( fn ){
-            var win, doc;
-
-            win = View.ControlFrame.getWindow( "tracker_page" );
-            doc = win.document;
-
-            return fn( win, doc );
-        };
-
-        cmd.toString =
-        page.toString = function(){
-            return "undefined";
-        };
-
-        host.cmd = cmd;
-        host.page = page;
-
-        return host;
-    }( host );
-
-    var Plugins = Tracker.Plugins = function(){
-        return {
-            addOn: function( name, fn ){
-                fn.call( this, CodeList, View );
-            },
-
-            addStyle: function( text ){
-                this.onControllerLoad( function(){
-                    var document, style;
-
-                    document = View.ControlFrame.getWindow( "tracker_controller" ).document;
-                    style = document.createElement( "style" );
-                    style.type = "text/css";
-                    style.appendChild( document.createTextNode( text ) );
-
-                    document.head.appendChild( style );
-                } );
-            },
-
-            addPanel: function( title, panelDefine ){
-                this.onControllerLoad( function(){
-                    var window, document, topNav, panels, titleEl, panelEl;
-
-                    window = View.ControlFrame.getWindow( "tracker_controller" );
-                    document = window.document;
-                    topNav = document.getElementById( "top-nav" );
-                    panels = document.getElementById( topNav.getAttribute( "data-target" ) );
-
-                    titleEl = document.createElement( "li" );
-                    titleEl.className = "relative";
-                    titleEl.innerHTML = "<a href='' onclick='return false'>" + title + "</a>";
-                    topNav.appendChild( titleEl );
-
-                    panelEl = document.createElement( "li" );
-                    panels.appendChild( panelEl );
-
-                    panelDefine.call( panelEl, window, document );
-                } );
-            },
-
-            setup: function( src ){
-                var script;
-
-                script = host.createElement( "script" );
-                script.type = "text/javascript";
-                script.src = src;
-
-                host.head.appendChild( script );
-            },
-
-            // privates
-            onControllerLoad: function( fn ){
-                if( controllerOnLoad.fired )
-                    controllerOnLoad( fn );
-
-                View.ControlFrame.on( "controllerLoad", fn );
-            }
-        }
-    }();
+//    var Tracker = function( host ){
+//        var cmd = function( cmd ){
+//            var n = arguments[1];
+//            switch( cmd ){
+//                case "code":
+//                    return typeof n != "undefined" ?
+//                        CodeList.get( n ) : CodeList.list();
+//                default:
+//                    return "no such command";
+//            }
+//        };
+//
+//        var page = function( fn ){
+//            var win, doc;
+//
+//            win = View.ControlFrame.getWindow( "tracker_page" );
+//            doc = win.document;
+//
+//            return fn( win, doc );
+//        };
+//
+//        cmd.toString =
+//        page.toString = function(){
+//            return "undefined";
+//        };
+//
+//        host.cmd = cmd;
+//        host.page = page;
+//
+//        return host;
+//    }( host );
+//
+//    var Plugins = Tracker.Plugins = function(){
+//        return {
+//            addOn: function( name, fn ){
+//                fn.call( this, CodeList, View );
+//            },
+//
+//            addStyle: function( text ){
+//                this.onControllerLoad( function(){
+//                    var document, style;
+//
+//                    document = View.ControlFrame.getWindow( "tracker_controller" ).document;
+//                    style = document.createElement( "style" );
+//                    style.type = "text/css";
+//                    style.appendChild( document.createTextNode( text ) );
+//
+//                    document.head.appendChild( style );
+//                } );
+//            },
+//
+//            addPanel: function( title, panelDefine ){
+//                this.onControllerLoad( function(){
+//                    var window, document, topNav, panels, titleEl, panelEl;
+//
+//                    window = View.ControlFrame.getWindow( "tracker_controller" );
+//                    document = window.document;
+//                    topNav = document.getElementById( "top-nav" );
+//                    panels = document.getElementById( topNav.getAttribute( "data-target" ) );
+//
+//                    titleEl = document.createElement( "li" );
+//                    titleEl.className = "relative";
+//                    titleEl.innerHTML = "<a href='' onclick='return false'>" + title + "</a>";
+//                    topNav.appendChild( titleEl );
+//
+//                    panelEl = document.createElement( "li" );
+//                    panels.appendChild( panelEl );
+//
+//                    panelDefine.call( panelEl, window, document );
+//                } );
+//            },
+//
+//            setup: function( src ){
+//                var script;
+//
+//                script = host.createElement( "script" );
+//                script.type = "text/javascript";
+//                script.src = src;
+//
+//                host.head.appendChild( script );
+//            },
+//
+//            // privates
+//            onControllerLoad: function( fn ){
+//                if( controllerOnLoad.fired )
+//                    controllerOnLoad( fn );
+//
+//                View.ControlFrame.on( "controllerLoad", fn );
+//            }
+//        }
+//    }();
 
     var pageBaseUrl = path.getBase( host );
     var pageBaseProtocol = pageBaseUrl.match( /^(\w+):/ )[ 1 ];
@@ -2934,7 +2923,7 @@ void function( window, factory ){
                         View.Loading.addCount();
 
                         code = new Code( null, content );
-                        code.loadConsum = 0;
+//                        code.loadConsum = 0;
                         code.setType( "embed" );
                         CodeList.add( code );
 
@@ -2959,7 +2948,7 @@ void function( window, factory ){
 
                                 content = data.response;
                                 code = new Code( url, content );
-                                code.loadConsum = data.consum;
+//                                code.loadConsum = data.consum;
                                 code.setType( "link" );
                                 CodeList.add( code );
 
@@ -3051,7 +3040,7 @@ void function( window, factory ){
         controllerOnLoad( function( window, document ){
             var waitTime, loadingEl;
 
-            Feedback.setAnalysisEnd();
+            //Feedback.setAnalysisEnd();
 
             waitTime = document.getElementById( "waitTime" );
             loadingEl = document.getElementById( "loading" );
@@ -3090,12 +3079,7 @@ void function( window, factory ){
         // }, 100 );
     }();
 } );   
-   
-/**
- * combocodegen.js ( based on escodegen )
- * @author dron
- * @create 2013-03-09
- */
+
 void function(global) {
 	   
    host = global.document;

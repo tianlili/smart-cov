@@ -1,10 +1,3 @@
-/** 
- * Tracker Cacher
- * @version 0.9
- * @author dron
- * @create 2013-04-16
- */
-
 void function( version, script, analyzer, parent ){
     if( window != window.parent )
         return ;
@@ -12,7 +5,7 @@ void function( version, script, analyzer, parent ){
     if( /msie/i.test( navigator.userAgent ) )
         return window.alert( "您使用的浏览器相对传统，建议换 chrome/firefox/safari 试试！" );
 
-    version = "1.7.9";
+    version = "1.0.0";
     
     scripts = [];
     scripts[0] = "http://127.0.0.1/smart-cov/cache.php?file=./esprima.js";
