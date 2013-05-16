@@ -3023,6 +3023,10 @@ void function( window, factory ){
         View.ControlFrame.on( "hide", function(){
             clearInterval( updateInterval );
         } );
+        
+        View.ControlFrame.on( "show", function(){
+        	updateInterval = setInterval( updateIntervalFunc, 3e3 );
+        } );
 
         View.ControlPanel.actions( {
             "frame#close": util.bind( View.ControlFrame.hide, View.ControlFrame ),
@@ -3052,10 +3056,9 @@ void function( window, factory ){
                 waitTime.innerHTML = "(" + (t / 1000).toFixed( 3 ) + "s)";
             } );
 
-            updateInterval = setInterval( function(){
+            updateIntervalFunc = function(){
                 if( !codes )
                     return ;
-
                 util.forEach( codes, function( code ){
                 	code.covResult = this.frames["tracker_page"].__coverage__[code.covId];
                 	
@@ -3071,7 +3074,7 @@ void function( window, factory ){
                 
                 View.ControlPanel.updateCodeTotal( codes );
                 
-            }, 3e3 );
+            };
         } );
 
         // setTimeout( function(){
