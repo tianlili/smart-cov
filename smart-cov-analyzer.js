@@ -1501,7 +1501,7 @@ void function( window, factory ){
                 	if(covResult)
                 		var b = covResult.b;
                 	for(var i in b){
-                		for(var j in b[i]){
+                		for(var j = 0; j < b[i].length; j++){
                 			bsum ++;
                     		if(b[i][j] > 0)
                     			bcov ++;
