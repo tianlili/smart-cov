@@ -1239,9 +1239,7 @@ void function( window, factory ){
                     currentMode = "embed", pageBuilder, controllerBuilder;
 
                 var config = {
-                    frameHeight: 300,
-                    windowWidth: 800,
-                    windowHeight: 600
+                    frameHeight: 300
                 };
 
                 var lookupForWindowReady = function( target ){
@@ -1618,7 +1616,7 @@ void function( window, factory ){
                     var mapping, offsets;
 
                     mapping = {
-                        index: 40, name: 200, type: 100, "cover-statement": 180, "cover-branch": 180, "cover-function": 180, "cover-statement-graph": 180
+                        index: 30, name: 180, type: 80, "cover-statement": 160, "cover-branch": 160, "cover-function": 160, "cover-statement-graph": 160
                     };
 
                     offsets = {
