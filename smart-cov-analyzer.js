@@ -3100,7 +3100,11 @@ void function(global) {
 
    host.combocodegen = function( code ){
 	   var covId = String(new Date().getTime()) + '.js';
-    	   code.covId = covId;
-    	   return instrumenter.instrumentSync(code.origContent, covId);
-       };
+	   code.covId = covId;
+	  
+	   if(host.format)
+		   code.origContent = escodegen.generate(esprima.parse(code.origContent, {loc: true}), {format: {compact: false }});
+       
+	   return instrumenter.instrumentSync(code.origContent, covId);
+   };
 }(this);
