@@ -34,8 +34,9 @@ table.compact-width th{ padding: 8px 5px; }
 .tab-content>li{ display: none; position: absolute; top: 0; bottom: 0; left: 0; right: 0; }
 .tab-content>li.tab-content-active{ display: block; }
 
-#top-navbar .close{ padding: 11px 18px 0 0; }
+#top-navbar .close{ padding: 11px 20px 0 0; opacity:.5; }
 #top-navbar .brand{ color: #333; }
+.close-button-like .close{ opacity:.5; }
 
 .main{ position: absolute; position: absolute; top: 43px; bottom: 0; left: 0; right: 0; }
 
@@ -50,8 +51,8 @@ table.compact-width th{ padding: 8px 5px; }
 #code-detail ul.code-toolbar-inner{ list-style-type: none; height: 100%; margin: 0; padding: 0; }
 #code-detail .code-toolbar li{ float: left; display: block; }
 #code-detail .code-toolbar li.right{ float: right; }
-#code-detail .code-toolbar li.close-button-like{ padding: 8px 12px 0 14px; }
-#code-detail .code-toolbar li.tab-like{ padding: 5px 0 0 30px; }
+#code-detail .code-toolbar li.close-button-like{ padding: 12px 24px 12px 24px; }
+#code-detail .code-toolbar li.tab-like{ padding: 5px 0 0 0; }
 #code-detail .code-toolbar li.label-like{ line-height: 36px; padding: 4px 10px 0; color: #999; }
 #code-detail .code-toolbar li.image-like{ padding: 12px 0 0 8px; }
 #code-detail .code-toolbar .image{ width: 16px; height: 16px; border: 1px solid #ccc; }
