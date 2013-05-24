@@ -1340,7 +1340,7 @@ void function( window, factory ){
                         if( currentMode === "window" && name === "tracker_controller" )
                             return controlWindow;
                         else
-                            return window.frames[ name ];
+                            return window.frames[ name ] || document.getElementsByName( name )[ 0 ].contentWindow;
                     },
 
                     // privates
@@ -1687,7 +1687,7 @@ void function( window, factory ){
                     
                     if( codeList.length ){
                         util.forEach( codeList, function( code, index ){
-                        	code.covResult = this.frames['tracker_page'].__coverage__[code.covId];
+                        	code.covResult = View.ControlFrame.getWindow("tracker_page").__coverage__[code.covId];
                             htmls[ index + 1 ] = codeTemplate( code );
                         } );
                         
@@ -1935,7 +1935,7 @@ void function( window, factory ){
                         }else if( code instanceof Code ){
                             code.onReady( function(){
                                 // code.index = index;
-                            	code.covResult = this.frames['tracker_page'].__coverage__[code.covId];
+                            	code.covResult = View.ControlFrame.getWindow("tracker_page").__coverage__[code.covId];
                             	
                                 tr = makeCodeTr( code );
                                 tbody.appendChild( tr );
@@ -3058,7 +3058,7 @@ void function( window, factory ){
                 if( !codes )
                     return ;
                 util.forEach( codes, function( code ){
-                	code.covResult = this.frames["tracker_page"].__coverage__[code.covId];
+                	code.covResult = View.ControlFrame.getWindow("tracker_page").__coverage__[code.covId];
                 	
                 	if(code.covResult){
                 		var scov = util.count(code.covResult.s);
