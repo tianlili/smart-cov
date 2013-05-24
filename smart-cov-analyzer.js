@@ -1817,7 +1817,12 @@ void function (window, factory) {
                             codeEl.innerHTML = "<div class='timeout-code'>" +
                                 "&#35299;&#26512;&#36229;&#26102;</div>"; // 解析超时
                         } else {
-                            currentDisposeLines = Annotate.annotate(code.covResult, code.linesViewHtml);
+                            try {
+                            	currentDisposeLines = Annotate.annotate(code.covResult, code.linesViewHtml);
+                            } catch(e) {
+                            	codeEl.innerHTML = "<div class='error-code'>" +
+                                "&#27880;&#37322;&#20986;&#38169;</div>"; // 注释出错
+                            }
                             linesCount = currentDisposeLines.length;
                             prepare();
                             timer = window.setInterval(interval, timeout);

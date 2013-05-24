@@ -69,7 +69,7 @@ table.compact-width th{ padding: 8px 5px; }
 #code-content .gutter pre{ color: #ccc; }
 #code-content .lines{ position: absolute; left: 60px; top: 0; padding: 5px; }
 #code-content .lines .arrive{ background-color: #bddbef; padding: 0 3px; border-radius: 2px; margin-left: -3px; color: #000; }
-#code-content .timeout-code, #code-content .empty-code{ padding: 10px; color: #ccc; }
+#code-content .timeout-code, #code-content .empty-code, #code-content .error-code{ padding: 10px; color: #ccc; }
 
 #code-info{ padding: 30px; }
 #code-info .group{ margin: 0 0 10px; }
