@@ -3051,19 +3051,19 @@ void function (window, factory) {
 
         View.ControlFrame.controllerBuilder(View.ControlPanel.htmlBuilder);
 
-        View.ControlFrame.on("pageLoad", function (window, document) {
-            var base, head;
-
-            // TODO: 如果页面本身已有 base 标签？
-            base = document.createElement("base");
-            head = document.head || document.getElementsByTagName("head")[0];
-            base.setAttribute("target", "tracker_main");
-            head.appendChild(base);
-
-            Event.add(window, "unload", function () {
-                location.assign(location.href);
-            });
-        });
+//        View.ControlFrame.on("pageLoad", function (window, document) {
+//            var base, head;
+//
+//            // TODO: 如果页面本身已有 base 标签？
+//            base = document.createElement("base");
+//            head = document.head || document.getElementsByTagName("head")[0];
+//            base.setAttribute("target", "tracker_main");
+//            head.appendChild(base);
+//
+//            Event.add(window, "unload", function () {
+//                location.assign(location.href);
+//            });
+//        });
 
         View.ControlFrame.on("controllerLoad", function (window, document) {
             View.ControlPanel.bindWindow(window);
