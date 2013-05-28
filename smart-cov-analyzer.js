@@ -20,7 +20,7 @@ void function (window, factory) {
 }(this, function (window) {
     var global, host, location, slice, floor, max, push, join, version, controllerOnLoad;
 
-    version = "1.0.3";
+    version = "1.0.4";
     global = window;
     host = global.document;
     location = global.location;
@@ -1311,10 +1311,10 @@ void function (window, factory) {
                         }
 
                         this.state = "show";
-                        this.fire("show");
+//                        this.fire("show");
                     },
 
-                    hide: function () {
+                    hide: function (close) {
                         var frameset, frame;
 
                         if (currentMode === "embed")
@@ -1326,7 +1326,8 @@ void function (window, factory) {
                             controlWindow.close();
 
                         this.state = "hide";
-                        this.fire("hide");
+                        if(close)
+                        	this.fire("hide");
                     },
 
                     toggleMode: function () {
@@ -1407,9 +1408,10 @@ void function (window, factory) {
                             ", height=" + height + ", left=" + left + ", top=" + top +
                             ", toolbar=no, menubar=no, resizable=yes, status=no, " +
                             "location=no, scrollbars=yes");
+                        //TODO:窗口关闭时，updateInterval没有停止
 
                         controllerBuilder("window").then(util.bind(function (html) {
-                            this.write("tracker_controller", html);
+                        	this.write("tracker_controller", html);
                             controller = this.getWindow("tracker_controller");
 
                             lookupForWindowReady(controller).then(util.bind(function () {
@@ -2146,8 +2148,12 @@ void function (window, factory) {
                             mouseup: function (e) {
                                 var action;
                                 if ((action = e.target.getAttribute("action")) &&
-                                    actions[action])
-                                    actions[action].call(me, e.target);
+                                    actions[action]){
+                                	if(action == "frame#close")
+                                        actions[action].call(me, true);
+                                	else
+                                		actions[action].call(me, e.target);
+                                }
                             },
 
                             keydown: function (e) {
@@ -3090,6 +3096,7 @@ void function (window, factory) {
 
         host.TrackerGlobalEvent.on("TrackerJSLoad", function () {
             controllerOnLoad(util.bind(View.ControlFrame.show, View.ControlFrame));
+            View.ControlFrame.fire("show");
         });
 
         restorePageEnvironments();
@@ -3110,27 +3117,26 @@ void function (window, factory) {
             }, function (t) {
                 waitTime.innerHTML = "(" + (t / 1000).toFixed(3) + "s)";
             });
-
-            updateIntervalFunc = function () {
-                if (!codes)
-                    return;
-                util.forEach(codes, function (code) {
-                    code.covResult = View.ControlFrame.getWindow("tracker_page").__coverage__[code.covId];
-
-                    if (code.covResult) {
-                        var scov = util.count(code.covResult.s);
-
-                        if (!code.covResult.lastScov || code.covResult.lastScov < scov) {
-                            code.covResult.lastScov = scov;
-                            View.ControlPanel.updateCode(code);
-                        }
-                    }
-                });
-
-                View.ControlPanel.updateCodeTotal(codes);
-
-            };
         });
+        
+        updateIntervalFunc = function () {
+            if (!codes)
+                return;
+            util.forEach(codes, function (code) {
+                code.covResult = View.ControlFrame.getWindow("tracker_page").__coverage__[code.covId];
+
+                if (code.covResult) {
+                    var scov = util.count(code.covResult.s);
+
+                    if (!code.covResult.lastScov || code.covResult.lastScov < scov) {
+                        code.covResult.lastScov = scov;
+                        View.ControlPanel.updateCode(code);
+                    }
+                }
+            });
+
+            View.ControlPanel.updateCodeTotal(codes);
+        };
 
         // setTimeout( function(){
         // Plugins.setup( pluginsUrlBase + "general.js&version=20130421" +
