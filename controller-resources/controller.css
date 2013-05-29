@@ -37,6 +37,8 @@ table.compact-width th{ padding: 8px 5px; }
 #top-navbar .close{ padding: 11px 20px 0 0; opacity:.5; }
 #top-navbar .brand{ color: #333; }
 .close-button-like .close{ opacity:.5; }
+.report{ cursor: pointer; background: transparent; border: 0; font-family: 'Courier New', 'Heiti SC', 'Microsoft Yahei'; padding: 10px 2px 10px; color: #777;}
+.new{ color: red; font-style:italic; font-size:12px; padding: 0px 15px 0px 0px; }
 
 .main{ position: absolute; position: absolute; top: 43px; bottom: 0; left: 0; right: 0; }
 
