@@ -1003,10 +1003,6 @@ void function (window, factory) {
                         "<li class='active'><a href='' onclick='return false'>&#20195;&#30721;&#21015;&#34920;</a></li>",
                         "</ul>",
                         "<ul class='nav pull-right'>",
-                        "<li>",
-                        "<button class='report' action='frame#report'>&#21457;&#36865;&#25253;&#21578;</button>",
-                        "<span class='new'>new</span>",
-                        "</li>",
                         "<li class='dropdown'>",
                         "<a href='' onclick='return false;' class='dropdown-toggle' data-toggle='dropdown'>",
                         "&#35270;&#22270;",
@@ -1346,40 +1342,6 @@ void function (window, factory) {
                         this.show();
 
                         Feedback.setPanelMode(currentMode);
-                    },
-                    
-                    report: function() {
-                        var xmlHttp, time = new Date().getTime(), html = this.getWindow("tracker_controller").document.getElementsByTagName("html")[0].outerHTML;
-                        try {
-                            // Firefox, Opera 8.0+, Safari
-                             xmlHttp = new XMLHttpRequest();
-                        }
-                        catch (e) {
-                            // Internet Explorer
-                             try {
-                                xmlHttp = new ActiveXObject("Msxml2.XMLHTTP");
-                            }
-                            catch (e) {  
-                                try {
-                                    xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
-                                }
-                                catch (e) {
-                                }
-                            }
-                        }
-            
-                        xmlHttp.onreadystatechange = function() {
-                            if (xmlHttp.readyState == 4) {
-                            	document.location="mailto:tianlili@baidu.com;?body=http://127.0.0.1/smart-cov/report/data/" + time;
-                            }
-                        }
-                        
-                        xmlHttp.open("POST", "http://127.0.0.1/smart-cov/report/filewrite.php", true);
-                        alert("1")
-                        xmlHttp.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
-                        alert("2")
-                        xmlHttp.send('name=' + time + '&html=' + encodeURIComponent(html));
-                        alert("3")
                     },
 
                     getMode: function () {
@@ -2980,7 +2942,7 @@ void function (window, factory) {
 
         controllerOnLoad = promise.fuze();
         host.TrackerGlobalEvent = Event.bind();
-        //pluginsUrlBase = "http://127.0.0.1/smart-cov/cache.php?file=./plugins/";
+        pluginsUrlBase = "http://127.0.0.1/smart-cov/cache.php?file=./plugins/";
 
         hookDebuggingCode = function (content, code) {
             return "__trackerScriptStart__('" + code.id + "');" + content +
@@ -3095,7 +3057,7 @@ void function (window, factory) {
 
         View.ControlFrame.controllerBuilder(View.ControlPanel.htmlBuilder);
 
-        View.ControlFrame.on("pageLoad", function (window, document) {
+//        View.ControlFrame.on("pageLoad", function (window, document) {
 //            var base, head;
 //
 //            // TODO: 如果页面本身已有 base 标签？
@@ -3103,11 +3065,11 @@ void function (window, factory) {
 //            head = document.head || document.getElementsByTagName("head")[0];
 //            base.setAttribute("target", "tracker_main");
 //            head.appendChild(base);
-
-            Event.add(window, "unload", function () {
-                location.assign(location.href);
-            });
-        });
+//
+//            Event.add(window, "unload", function () {
+//                location.assign(location.href);
+//            });
+//        });
 
         View.ControlFrame.on("controllerLoad", function (window, document) {
             View.ControlPanel.bindWindow(window);
@@ -3129,8 +3091,7 @@ void function (window, factory) {
 
         View.ControlPanel.actions({
             "frame#close": util.bind(View.ControlFrame.hide, View.ControlFrame),
-            "frame#toggle": util.bind(View.ControlFrame.toggleMode, View.ControlFrame),
-            "frame#report": util.bind(View.ControlFrame.report, View.ControlFrame),
+            "frame#toggle": util.bind(View.ControlFrame.toggleMode, View.ControlFrame)
         });
 
         host.TrackerGlobalEvent.on("TrackerJSLoad", function () {
