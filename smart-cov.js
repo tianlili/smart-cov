@@ -10,7 +10,7 @@ void function (version, script, analyzer, parent) {
     scripts = [];
     scripts[0] = "http://127.0.0.1/smart-cov/cache.php?file=./esprima.js";
     scripts[1] = "http://127.0.0.1/smart-cov/cache.php?file=./escodegen.js";
-    scripts[2] = "http://127.0.0.1/smart-cov/cache.php?file=./instrument.js";
+    scripts[2] = "http://127.0.0.1/smart-cov/cache.php?file=./instrumenter.js";
     scripts[3] = "http://127.0.0.1/smart-cov/cache.php?file=./smart-cov-analyzer.js&version=" + version;
 
     function load(i) {

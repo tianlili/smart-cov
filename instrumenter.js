@@ -1,4 +1,3 @@
-  //instrument.js start
     /*
     Copyright (c) 2012, Yahoo! Inc.  All rights reserved.
     Copyrights licensed under the New BSD License. See the accompanying LICENSE file for terms.
@@ -9,8 +8,8 @@
 
        var SYNTAX,
            nodeType,
-           ESP = isNode ? require('esprima') : esprima,
-           ESPGEN = isNode ? require('escodegen') : escodegen,  //TODO - package as dependency
+           ESP = isNode ? require('./esprima') : esprima,
+           ESPGEN = isNode ? require('./escodegen') : escodegen,  //TODO - package as dependency
            crypto = isNode ? require('crypto') : null,
            LEADER_WRAP = '(function () { ',
            TRAILER_WRAP = '\n}());',
@@ -192,6 +191,7 @@
                    } else {
                        assignNode = walker.walk(childNode, null, pathElement) || childNode;
                        if (isArray(assignNode.prepend)) {
+                    	   //updated by tianlili
                            //throw new Error('Internal error: attempt to prepend statements in disallowed (non-array) context');
                            /* if this should be allowed, this is how to solve it */
                            tmpNode = { type: 'BlockStatement', body: [] };
@@ -485,7 +485,7 @@
                JSON.stringify = function(value) {
                    var _array_tojson = Array.prototype.toJSON;
                    delete Array.prototype.toJSON;
-                   var r=_json_stringify(value);
+                   var r = _json_stringify(value);
                    Array.prototype.toJSON = _array_tojson;
                    return r;
                };
@@ -711,4 +711,3 @@
        }
 
    }(typeof module !== 'undefined' && typeof module.exports !== 'undefined' && typeof exports !== 'undefined'));
-   //instrument.js end
