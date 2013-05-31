@@ -9,7 +9,7 @@
        var SYNTAX,
            nodeType,
            ESP = isNode ? require('./esprima') : esprima,
-           ESPGEN = isNode ? require('./escodegen') : escodegen,  //TODO - package as dependency
+           ESPGEN = isNode ? require('escodegen') : escodegen,  //TODO - package as dependency
            crypto = isNode ? require('crypto') : null,
            LEADER_WRAP = '(function () { ',
            TRAILER_WRAP = '\n}());',

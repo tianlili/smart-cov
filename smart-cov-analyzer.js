@@ -20,7 +20,7 @@ void function (window, factory) {
 }(this, function (window) {
     var global, host, location, slice, floor, max, push, join, version, controllerOnLoad;
 
-    version = "1.0.4";
+    version = "1.1.0";
     global = window;
     host = global.document;
     location = global.location;
@@ -3189,13 +3189,8 @@ void function (global) {
         return;
 
     var instrumenter = new Instrumenter({
-        debug: false,
         noAutoWrap: true,
-        codeGenerationOptions: {
-            format: {
-                compact: false,
-            }
-        }
+        noCompact: true
     });
 
     host.combocodegen = function (code) {
@@ -3206,9 +3201,7 @@ void function (global) {
             code.origContent = escodegen.generate(esprima.parse(code.origContent, {
                 loc: true
             }), {
-                format: {
-                    compact: false
-                }
+            	noCompact: true
             });
 
         return instrumenter.instrumentSync(code.origContent, covId);
