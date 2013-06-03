@@ -1350,7 +1350,7 @@ void function (window, factory) {
                     
                     report: function() {
                     	function transDate() {
-                    		return new Date().getFullYear()+ "." + new Date().getMonth() + "." + new Date().getDay() + "-" + new Date().getHours() + "." + new Date().getMinutes() + "." +　new Date().getSeconds()
+                    		return new Date().getFullYear()+ "." + (new Date().getMonth() + 1) + "." + new Date().getDate() + "-" + new Date().getHours() + "." + new Date().getMinutes() + "." +　new Date().getSeconds()
                     	}
                         var xmlHttp, time = transDate(), 
                         	html = this.getWindow("tracker_controller").document.getElementsByTagName("html")[0].outerHTML;
