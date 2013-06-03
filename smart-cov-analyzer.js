@@ -1349,10 +1349,10 @@ void function (window, factory) {
                     },
                     
                     report: function() {
-                    	function transDate(d) {
-                    		return new Date().toLocaleString().replace(/年|月/g, "-").replace(/日/, "").replace(/上午/, "").replace(/下午([0-9]+)*:/, function(match,number){return 12 + parseInt(number) + ":"}).replace(/:|-/g, ".").replace(/ /g, "-");	
+                    	function transDate() {
+                    		return new Date().getFullYear()+ "." + new Date().getMonth() + "." + new Date().getDay() + "-" + new Date().getHours() + "." + new Date().getMinutes() + "." +　new Date().getSeconds()
                     	}
-                        var xmlHttp, time = transDate(new Date()), 
+                        var xmlHttp, time = transDate(), 
                         	html = this.getWindow("tracker_controller").document.getElementsByTagName("html")[0].outerHTML;
                         html = html.replace('div id="code-detail" class="absolute" style="display: block;">', 'div id="code-detail" class="absolute">');
                         html = html.replace('<li class="dropdown open">', '<li class="dropdown">');
