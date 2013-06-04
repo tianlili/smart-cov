@@ -492,13 +492,30 @@
                // added by tianlili
                
                coverState = this.opts.debug ? JSON.stringify(this.coverState, undefined, 4) : JSON.stringify(this.coverState);
-               code = [
-                   "if (typeof %GLOBAL% === 'undefined') { %GLOBAL% = {}; }",
-                   "if (!%GLOBAL%['%FILE%']) {",
-                   "   %GLOBAL%['%FILE%'] = %OBJECT%;",
-                   "}",
-                   "var %VAR% = %GLOBAL%['%FILE%'];"
-               ].join("\n")
+               
+               var node_prefix = [
+               			       "if (typeof top === 'object' && top !== null) {",
+            				   "    if (typeof top.opener === 'object' && top.opener !== null) {",
+            				   "        if (! top.opener.%GLOBAL%) {",
+            				   "            top.opener.%GLOBAL% = {};",
+            				   "        }",
+            				   "        top.%GLOBAL% = top.opener.%GLOBAL%;",
+            				   "    }",
+            				   "    if (! top.%GLOBAL%) {",
+            				   "        top.%GLOBAL% = {};",
+            				   "    }",
+            				   "    %GLOBAL% = top.%GLOBAL%;",
+            				   "}"
+            			   ];
+               var browser_temp = [
+                                  "if (typeof %GLOBAL% === 'undefined') { %GLOBAL% = {}; }",
+                                  "if (!%GLOBAL%['%FILE%']) {",
+                                  "    %GLOBAL%['%FILE%'] = %OBJECT%;",
+                                  "}",
+                                  "var %VAR% = %GLOBAL%['%FILE%'];"
+                              ];
+               code = (isNode ? node_prefix.concat(browser_temp) : browser_temp)
+                   .join("\n")
                    .replace(/%VAR%/g, replacer(tracker))
                    .replace(/%GLOBAL%/g, replacer(varName))
                    .replace(/%FILE%/g, replacer(file))

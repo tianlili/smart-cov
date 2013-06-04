@@ -53,7 +53,7 @@ function runCommand(args, callback) {
 //    commandArgs.push.apply(commandArgs, args.slice(pos + 1));
 
     try {
-        commandObject = Command.create("instrumentCommand");
+        commandObject = Command.create("instrument");
     } catch (ex) {
         errHandler(inputError.create(ex.message));
     }

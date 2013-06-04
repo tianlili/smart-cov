@@ -96,7 +96,7 @@ function InstrumentCommand() {
     Command.call(this);
 }
 
-InstrumentCommand.TYPE = 'instrumentCommand';
+InstrumentCommand.TYPE = 'instrument';
 util.inherits(InstrumentCommand, Command);
 
 Command.mix(InstrumentCommand, {
