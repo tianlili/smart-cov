@@ -53,7 +53,7 @@ function processFiles(instrumenter, inputDir, outputDir, relativeNames) {
             mkdirp.sync(oDir);
             fs.readFile(inputFile, 'utf8', function (err, data) {
                 if (err) { return callback(err, name); }
-                instrumenter.instrument(data, inputFile, function (iErr, instrumented) {
+                instrumenter.instrument(data, name, function (iErr, instrumented) {
                     if (iErr) { return callback(iErr, name); }
                     fs.writeFile(outputFile, instrumented, 'utf8', function (err) {
                         return callback(err, name);
