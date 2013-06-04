@@ -9,6 +9,7 @@
 var Command = require('./command'),
     inputError = require('./util/input-error'),
     util = require('util'),
+    NAME = require('./util/meta').NAME,
     exit = process.exit; //hold a reference to original process.exit so that we are not affected even when a test changes it
 
 Command.loadAll();
@@ -25,15 +26,14 @@ function findCommandPosition(args) {
     return -1;
 }
 
-function errHandler (ex, commandObject) {
+function errHandler (ex) {
     if (!ex) { return; }
     if (!ex.inputError) {
         throw ex; // turn it into an uncaught exception
     } else {
         //don't print nasty traces but still exit(1)
         util.error(ex.message);
-        if(commandObject)
-        	commandObject.usage();
+        util.error('Try "' + NAME + ' help" for usage');
         exit(1);
     }
 }
@@ -43,21 +43,21 @@ function runCommand(args, callback) {
         command,
         commandArgs,
         commandObject;
-//
-//    if (pos < 0) {
-//        return callback(inputError.create('Need a command to run'));
-//    }
-//
-//    commandArgs = args.slice(0, pos);
-//    command = args[pos];
-//    commandArgs.push.apply(commandArgs, args.slice(pos + 1));
+
+    if (pos < 0) {
+        return callback(inputError.create('Need a command to run'));
+    }
+
+    commandArgs = args.slice(0, pos);
+    command = args[pos];
+    commandArgs.push.apply(commandArgs, args.slice(pos + 1));
 
     try {
-        commandObject = Command.create("instrument");
+        commandObject = Command.create(command);
     } catch (ex) {
         errHandler(inputError.create(ex.message));
     }
-    commandObject.run(args, errHandler);
+    commandObject.run(commandArgs, errHandler);
 }
 
 function runToCompletion(args) {

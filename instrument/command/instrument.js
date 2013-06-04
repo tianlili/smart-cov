@@ -14,6 +14,7 @@ var path = require('path'),
     formatOption = require('../util/help-formatter').formatOption,
     util = require('util'),
     Command = require('./index'),
+    NAME = require('../util/meta').NAME,
 //    Collector = require('../collector'),
     verbose;
 
@@ -105,21 +106,20 @@ Command.mix(InstrumentCommand, {
 //    },
 
     usage: function () {
-        console.error('\nUsage: node instrument <file-or-directory> <options>\n\nOptions are:\n\n' +
+        console.error('\nUsage: ' + NAME + ' instrument <file-or-directory> <options>\n\nOptions are:\n\n' +
             [
                 formatOption('--output <file-or-dir>', 'The output file or directory. This is required when the input is a directory, ' +
                     'defaults to standard output when input is a file'),
                 formatOption('-x <exclude-pattern> [-x <exclude-pattern>]', 'one or more fileset patterns (e.g. "**/vendor/**" to ignore all files ' +
                     'under a vendor directory). Also see the --default-excludes option'),
-                formatOption('--variable <global-coverage-variable-name>', 'change the variable name of the global coverage variable from the ' +
-                    'default value of `__coverage__` to something else'),
-                formatOption('--embed-source', 'embed source code into the coverage object, defaults to false'),
+//                formatOption('--variable <global-coverage-variable-name>', 'change the variable name of the global coverage variable from the ' +
+//                    'default value of `__coverage__` to something else'),
+//                formatOption('--embed-source', 'embed source code into the coverage object, defaults to false'),
                 formatOption('--compact', 'produce [non]compact output, defaults to noncompact'),
                 formatOption('-v', 'show the instrumenting process, like "Processed a.js", defaults to false')
 //                formatOption('--save-baseline', 'produce a baseline coverage.json file out of all files instrumented'),
 //                formatOption('--baseline-file <file>', 'filename of baseline file, defaults to coverage/coverage-baseline.json')
             ].join('\n\n') + '\n');
-        console.error('\n');
     },
 
     run: function (args, callback) {
@@ -127,30 +127,30 @@ Command.mix(InstrumentCommand, {
         var config = {
                 output: path,
                 x: [Array, String],
-                variable: String,
+//                variable: String,
                 compact: Boolean,
-                verbose: Boolean,
+                verbose: Boolean
 //                'save-baseline': Boolean,
 //                'baseline-file': path,
-                'embed-source': Boolean
+//                'embed-source': Boolean
             },
             opts = nopt(config, { v : '--verbose' }, args, 0),
             cmdArgs = opts.argv.remain,
             file,
             stats,
             stream,
-            instrumenter = new Instrumenter({ coverageVariable: opts.variable });
+            instrumenter = new Instrumenter();
 //            needBaseline = opts['save-baseline'],
 //            baselineFile = opts['baseline-file'] || path.resolve(process.cwd(), 'coverage', 'coverage-baseline.json');
 
         verbose = opts.verbose;
         if (cmdArgs.length !== 1) {
-            return callback(inputError.create('Need exactly one filename/ dirname argument for the instrument command!'), this);
+            return callback(inputError.create('Need exactly one filename/ dirname argument for the instrument command!'));
         }
 
         instrumenter = new Instrumenter({
-            coverageVariable: opts.variable,
-            embedSource: opts['embed-source'],
+//            coverageVariable: opts.variable,
+            embedSource: true,
             noCompact: !opts.compact
         });
 
@@ -167,7 +167,7 @@ Command.mix(InstrumentCommand, {
         try {
         	stats = fs.statSync(file);
             if (stats.isDirectory()) {
-                if (!opts.output) { return callback(inputError.create('Need an output directory [-o <dir>] when input is a directory!'), this); }
+                if (!opts.output) { return callback(inputError.create('Need an output directory [-o <dir>] when input is a directory!')); }
                 if (opts.output === file) { return callback(inputError.create('Cannot instrument into the same directory/ file as input!')); }
                 mkdirp.sync(opts.output);
                 filesFor({
@@ -191,7 +191,7 @@ Command.mix(InstrumentCommand, {
                 }
             }
         } catch (ex) {
-        	return callback(inputError.create(ex.message), this);
+        	return callback(inputError.create(ex.message));
         }
     }
 });
