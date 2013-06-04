@@ -1349,40 +1349,36 @@ void function (window, factory) {
                     },
                     
                     report: function() {
-                    	function transDate() {
+                		function transDate() {
                     		return new Date().getFullYear()+ "." + (new Date().getMonth() + 1) + "." + new Date().getDate() + "-" + new Date().getHours() + "." + new Date().getMinutes() + "." +　new Date().getSeconds()
                     	}
-                        var xmlHttp, time = transDate(), 
+                		
+                        var xhr, time = transDate(), timeout = 10e3, timer,
                         	html = this.getWindow("tracker_controller").document.getElementsByTagName("html")[0].outerHTML;
                         html = html.replace('div id="code-detail" class="absolute" style="display: block;">', 'div id="code-detail" class="absolute">');
                         html = html.replace('<li class="dropdown open">', '<li class="dropdown">');
-                        try {
-                            // Firefox, Opera 8.0+, Safari
-                             xmlHttp = new XMLHttpRequest();
-                        }
-                        catch (e) {
-                            // Internet Explorer
-                             try {
-                                xmlHttp = new ActiveXObject("Msxml2.XMLHTTP");
-                            }
-                            catch (e) {  
-                                try {
-                                    xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
-                                }
-                                catch (e) {
-                                }
-                            }
-                        }
+                        
+                        if (XMLHttpRequest) // Firefox, Opera 8.0+, Safari
+                        	xhr = new XMLHttpRequest();
+                        else
+                        	xhr = new ActiveXObject("Microsoft.XMLHTTP");
             
-                        xmlHttp.onreadystatechange = function() {
-                            if (xmlHttp.readyState == 4) {
+                        xhr.onreadystatechange = function() {
+                            if (xhr.readyState == 4) {
+                            	clearTimeout(timer);
                             	document.location="mailto:tianlili@baidu.com;?body=http://127.0.0.1/smart-cov/report/data/" + time + ".html (Please open with Chrome/Safari/Firefox)";
                             }
                         }
-                        
-                        xmlHttp.open("POST", "http://127.0.0.1/smart-cov/report/filewrite.php", true);
-                        xmlHttp.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
-                        xmlHttp.send('name=' + time + '&html=' + encodeURIComponent(html));
+
+                    	xhr.open("POST", "http://127.0.0.1/smart-cov/report/filewrite.php", true);
+                    	xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+                       
+                        timer = setTimeout(function () {
+                    	    xhr.abort();
+                    	    xhr = null;
+                        }, timeout);
+
+                        xhr.send('name=' + time + '&html=' + encodeURIComponent(html)); 
                     },
 
                     getMode: function () {

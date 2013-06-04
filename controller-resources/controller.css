@@ -11,7 +11,7 @@ ul.tab-content, ol.tab-content{ margin: 0; padding: 0; }
 ::-webkit-scrollbar{ width: 12px; height: 12px; }
 ::-webkit-scrollbar-track-piece{ background: #fafafa; -webkit-border-radius: 0; }
 
-html, body, table{ font-family: 'Courier New', 'Heiti SC', 'Microsoft Yahei'; }
+html, body, table{ font-family: 'Courier New', 'Heiti SC', 'Microsoft Yahei'; font-size: 14px; }
 html, body{ width: 100%; height: 100%; overflow: hidden; }
 
 .scrollable{ overflow: auto; }
