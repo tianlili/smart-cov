@@ -13,7 +13,7 @@
     "email": "tianlili@baidu.com"
   },
   "bin": {
-    "smart-cov": "./instrument/cli.js"
+    "smart-cov": "./lib/cli.js"
   },
   "dependencies": {
     "escodegen": "0.0.x",
