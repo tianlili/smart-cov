@@ -1860,7 +1860,7 @@ void function (window, factory) {
                             	currentDisposeLines = Annotate.annotate(code.covResult, code.linesViewHtml);
                             } catch(e) {
                             	codeEl.innerHTML = "<div class='error-code'>" +
-                                "&#27880;&#37322;&#20986;&#38169;</div>"; // 注释出错
+                                "&#26631;&#35760;&#20986;&#38169;</div>"; // 标记出错
                             }
                             linesCount = currentDisposeLines.length;
                             prepare();
@@ -2439,8 +2439,8 @@ void function (window, factory) {
     // }
     // }();
 
+    
     // 在源码上加覆盖标记 start
-
     function InsertionText(text, consumeBlanks) {
         this.text = text;
         this.origLength = text.length;
