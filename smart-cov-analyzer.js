@@ -1372,7 +1372,7 @@ void function (window, factory) {
                             }
                         }
 
-                    	xhr.open("POST", "http://127.0.0.1/smart-cov/report/filewrite.php", true);
+                    	xhr.open("POST", "http://127.0.0.1/smart-cov/report/coverage-store.php", true);
                     	xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
                        
                         timer = setTimeout(function () {
@@ -1380,7 +1380,7 @@ void function (window, factory) {
                     	    xhr = null;
                         }, timeout);
 
-                        xhr.send('name=' + time + '&html=' + encodeURIComponent(html)); 
+                        xhr.send('name=' + time + '.html' + '&content=' + encodeURIComponent(html)); 
                     },
 
                     getMode: function () {
