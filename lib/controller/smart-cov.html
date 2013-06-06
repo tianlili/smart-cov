@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7">
+<title>smart-cov</title>
+<link rel="stylesheet" type="text/css" href="smart-cov.css">
+
+<link rel="stylesheet" type="text/css"
+	href="bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css"
+	href="controller-resources/controller.css">
+
+<script type="text/javascript" src="view.js"></script>
+<script type="text/javascript" src="smart-cov.js"></script>
+</head>
+
+<body onload="body_load();"
+	onresize="body_resize();">
+	<div id="mainDiv">
+
+		<div id="headingDiv">
+			<h1>smart-cov</h1>
+			<span id="progressLabel"></span>
+			<div id="warningDiv">
+				<strong>Warning:</strong>loading
+				<code>smart-cov.html</code>
+				using a
+				<code>file:</code>
+				URL is deprecated
+			</div>
+		</div>
+
+		<div id="tabs" class="Tabs">
+			<div id="browserTab">Browser</div>
+			<div id="summaryTab">Summary</div>
+			<div id="sourceTab" class="disabled">Source</div>
+			<div id="storeTab">Store</div>
+			<div id="aboutTab">About</div>
+		</div>
+
+		<div id="tabPages" class="TabPages">
+			<!-- tab1 -->
+			<div class="TabPage" id="browserTabPage">
+				<div id="locationDiv">
+					URL: <input id="location" type="text" size="70"
+						onkeypress="input_keypress(event)">
+					<button onclick="openInFrameButton_click();"
+						title="open URL in the iframe below [Enter]">Open in
+						frame</button>
+					<button onclick="openInWindowButton_click();"
+						title="open URL in a new window (or tab) [Shift+Enter]">Open
+						in window</button>
+				</div>
+				<div id="iframeDiv">
+					<iframe id="browserIframe" onload="browser_load();"></iframe>
+				</div>
+			</div>
+			<!-- tab1 -->
+
+			<!-- tab2 -->
+			<div class="TabPage">
+				<div id="summaryDiv"></div>
+				<div id="summaryErrorDiv"></div>
+			</div>
+			<!-- tab2 -->
+
+			<!-- tab3 -->
+			<div class="TabPage">
+				<div id="fileDiv"></div>
+				<div id="sourceDiv"></div>
+			</div>
+			<!-- tab3 -->
+
+			<!-- tab4 -->
+			<div class="TabPage" id="storeTabPage">
+				<button id="storeButton" onclick="storeButton_click();">Store
+					Report</button>
+				<div id="storeDiv"></div>
+			</div>
+			<!-- tab4 -->
+
+			<!-- tab5 -->
+			<div class="TabPage">
+				<p>This is version 1.1.1 of smart-cov, a JS code coverage tool
+					that computes statement, function and branch coverage.</p>
+				<p>
+					See <a target="_blank" href="http://wiki.babel.baidu.com/twiki/bin/view/Com/Test/QA_ge_smartcov">http://wiki.babel.baidu.com/twiki/bin/view/Com/Test/QA_ge_smartcov</a>
+					for more information.
+				</p>
+			</div>
+			<!-- tab5 -->
+		</div>
+	</div>
+</body>
+</html>
