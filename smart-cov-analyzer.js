@@ -1128,7 +1128,9 @@ void function (window, factory) {
                         "<h3>smart-cov</h3>",
                         "</div>",
                         "<div class='modal-body'>",
+                        "<p>JS &#35821;&#21477;&#12289;&#20989;&#25968;&#12289;&#20998;&#25903;&#35206;&#30422;&#29575;&#35745;&#31639;&#24037;&#20855;</p>",
                         "<p>&#24403;&#21069;&#29256;&#26412;&#65306;@{version}</p>",
+                        "<p>@{wiki}</p>",
                         "</div>",
                         "<div class='modal-footer'>",
                         "<a href='#' onclick='return false;' class='btn btn-primary'>&#30830;&#23450;</a>",
@@ -2146,6 +2148,7 @@ void function (window, factory) {
                                 globalLoading: View.templates.controllerGlobalLoading,
 
                                 version: version,
+                                wiki: "http://wiki.babel.baidu.com/twiki/bin/view/Com/Test/QA_ge_smartcov",
                                 uid: host.tracker_uid
                             })));
                         });
