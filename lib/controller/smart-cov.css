@@ -63,6 +63,10 @@ summary tab
 	overflow: auto;
 }
 
+th.tcenter, td.tcenter {
+	text-align: center;
+}
+
 /*******************************************************************************
 source tab
 */
