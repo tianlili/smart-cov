@@ -2,7 +2,7 @@
 // list
 var templates= {
 	controllerCodeList: [
-            "<table class='table compact-width' width='100%'>",
+            "<table class='table compact-width'>",
             "<thead>",
             "<tr>",
             "<th width='@{widthIndex}' class='tcenter'>#</th>",
@@ -15,7 +15,7 @@ var templates= {
             "</thead>",
             "</table>",
             "<div id='list-codes' class='scrollable'>",
-            "<table class='table table-striped table-hover table-condensed' width='100%'>",
+            "<table class='table table-striped table-hover table-condensed'>",
             "<colgroup>",
             "<col width='@{widthIndex}'>",
             "<col width='@{widthName}'>",
@@ -35,8 +35,7 @@ var templates= {
             "<div id='code-detail' class='absolute'>",
             "<div class='code-toolbar clearfix'>",
             "<ul class='code-toolbar-inner'>",
-
-        "<li class='label-like right tab-desc tab-desc-0'>&#24050;&#25191;&#34892;</li>",
+            "<li class='label-like right tab-desc tab-desc-0'>&#24050;&#25191;&#34892;</li>",
             "<li class='image-like right tab-desc tab-desc-0'><div class='arrive image'></div></li>",
             "<li class='label-like right tab-desc tab-desc-0'>&#26410;&#25191;&#34892;&#20998;&#25903;</li>",
             "<li class='image-like right tab-desc tab-desc-0'><div class='unarrivebran image'></div></li>",
@@ -47,7 +46,9 @@ var templates= {
             "<li class='label-like right tab-desc tab-desc-0'>&#22270;&#20363;&#65306;</li>",
             "</ul>",
             "</div>",
+            "<div id='code-detail-body'>",
             "<div id='code-content' class='relative scrollable'></div>",
+            "</div>",
             "</div>"
     ].join(""),
 
@@ -725,7 +726,7 @@ var asnyShowCode = function () {
             // } );
 
             h1.push(tag(nowIndex + 1, "pre"));
-            h2.push(tag(/^\s$/.test(t) ? " " : t, "pre"));
+            h2.push(tag((t.length == 0 || /^\s$/.test(t)) ? " " : t, "pre"));
 
             nowIndex++;
         }

@@ -93,6 +93,10 @@ source tab
 	border-left:0;
 }
 
+#code-detail-body{ 
+	position: absolute;
+}
+
 /*******************************************************************************
 store tab
 */

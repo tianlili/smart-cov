@@ -1,5 +1,15 @@
-function init(w) {
 
+var currentFile = null;
+
+var inLengthyOperation = false;
+
+var isReport = getQueryStringRegExp('report');
+
+var isIE = navigator.userAgent.match(/MSIE ([\d.]+)/);
+
+init(window);
+
+function init(w) {
     // check if we are in inverted mode
     if (w.opener) {
         try {
@@ -30,16 +40,11 @@ function init(w) {
 
 function getQueryStringRegExp(name) {
     var reg = new RegExp("(^|\\?|&)"+ name +"=([^&]*)(\\s|&|$)", "i");  
-    if (reg.test(location.href)) return unescape(RegExp.$2.replace(/\+/g, " ")); return "";
+    if (reg.test(location.href)) 
+    	return unescape(RegExp.$2.replace(/\+/g, " ")); 
+    return "";
 }
 
-var currentFile = null;
-
-var inLengthyOperation = false;
-
-var isReport = getQueryStringRegExp('report');
-
-init(window);
 
 function createRequest() {
     if (window.ActiveXObject) {
@@ -168,7 +173,7 @@ function removeTab(id) {
     tabPage.parentNode.removeChild(tabPage);
 }
 
-function isValidURL(url) {
+function isValid(url) {
     // RFC 3986
     var matches = /^(([^:\/?#]+):)?(\/\/([^\/?#]*))?([^?#]*)(\?([^#]*))?(#(.*))?/.exec(url);
     if (matches === null) {
@@ -180,6 +185,24 @@ function isValidURL(url) {
         return scheme === '' || scheme === 'file:' || scheme === 'http:' || scheme === 'https:';
     }
     return true;
+}
+
+var isValidURL = function (url) {
+    var result = isValid(url);
+    if (!result) {
+        alert('Invalid URL: ' + url);
+    }
+    return result;
+};
+
+function isCrossDomain(url) {	
+	var purl = location.protocol + '//' + location.host + '/'    
+	var result = !(url.indexOf(purl) == 0);
+	
+	if (result) {
+	    alert('Cross Domain!');
+	}
+	return result;
 }
 
 /**
@@ -195,64 +218,50 @@ function initTabContents(queryString) {
     var parameters, parameter, i, index, name, value;
     if (queryString.length > 0) {
         // chop off the question mark
-        queryString = queryString.substring(1);
-        parameters = queryString.split(/&|;/);
-        for (i = 0; i < parameters.length; i++) {
-            parameter = parameters[i];
-            index = parameter.indexOf('=');
-            if (index === -1) {
-                // still works with old syntax
-                url = decodeURIComponent(parameter);
-            } else {
-                name = parameter.substr(0, index);
-                value = decodeURIComponent(parameter.substr(index + 1));
-                if (name === 'missing' || name === 'm') {
-                    showMissingColumn = getBooleanValue(value);
-                } else if (name === 'url' || name === 'u' || name === 'frame' || name === 'f') {
-                    url = value;
-                } else if (name === 'window' || name === 'w') {
-                    windowURL = value;
-                }
+    	parameter = queryString.substring(1);
+        index = parameter.indexOf('=');
+        if (index === -1) {
+            // still works with old syntax
+            url = decodeURIComponent(parameter);
+        } else {
+            name = parameter.substr(0, index);
+            value = decodeURIComponent(parameter.substr(index + 1));
+            if (name === 'url' || name === 'u' || name === 'frame' || name === 'f') {
+                url = value;
+            } else if (name === 'window' || name === 'w') {
+                windowURL = value;
             }
         }
     }
 
-    var isValidURL = function (url) {
-        var result = isValidURL(url);
-        if (!result) {
-            alert('Invalid URL: ' + url);
-        }
-        return result;
-    };
-
-    if (url !== null && isValidURL(url)) {
+    if (url !== null && isValidURL(url) && !isCrossDomain(url)) {
         // this will automatically propagate to the input field
         frames[0].location = url;
-    } else if (windowURL !== null && isValidURL(windowURL)) {
+    } else if (windowURL !== null && isValidURL(windowURL) && !isCrossDomain(url)) {
         window.open(windowURL);
-    }
-
-    // if the browser tab is absent, we have to initialize the summary tab
-    if (!document.getElementById('browserTab')) {
-        recalculateSummaryTab();
     }
 }
 
 function body_load() {
+	initSS_ie();
+	
     // check if this is a file: URL
     if (window.location && window.location.href && /^file:/i.test(window.location.href)) {
         var warningDiv = document.getElementById('warningDiv');
         warningDiv.style.display = 'block';
     }
 
-    function reportError(e) {
+    function reportInfo(e) {
         endLengthyOperation();
-        var div = document.getElementById('summaryErrorDiv');
-        div.innerHTML = 'Error: ' + e;
+        var div = document.getElementById('summaryInfoDiv');
+        div.innerHTML = e;
     }
 
     if (isReport) {
         beginLengthyOperation();
+        
+        reportInfo("please wait a moment...");
+        
         var request = createRequest(),
         	json_file = isReport == 'true' ? 'coverage.json' : isReport;
         try {
@@ -272,18 +281,18 @@ function body_load() {
                             if (!json.hasOwnProperty(file)) {
                                 continue;
                             }
-
                             __coverage__[file] = json[file];
                         }
                         recalculateSummaryTab();
+                        reportInfo("");
                     } catch (e) {
-                        reportError(e);
+                        reportInfo(e);
                     }
                 }
             };
             request.send(null);
         } catch (e) {
-            reportError(e);
+            reportInfo(e);
         }
 
         removeTab('browser');
@@ -294,12 +303,11 @@ function body_load() {
 
     initTabContents(location.search);
     
-    body_style_init();
+    body_resize();
 }
 
-function body_style_init() {
-    if (parseInt(navigator.userAgent.match(/MSIE ([\d.]+)/)[1]) <= 7) {
-    	
+function body_resize() {
+    if (isIE && parseInt(isIE[1]) <= 7) {   	
     	var link = document.createElement("link");
     	link.rel = "stylesheet";
     	link.type = "text/css";
@@ -311,18 +319,40 @@ function body_style_init() {
     }
 }
 
+function initSS_ie(){
+	if (isIE && parseInt(isIE[1]) <= 7) {   	
+    	var link = document.createElement("link");
+    	link.rel = "stylesheet";
+    	link.type = "text/css";
+    	link.href = "smart-cov-ie.css";
+    	var head = document.getElementsByTagName("head")[0];
+    	head.appendChild(link);
+    }
+	
+	if(!window.JSON){
+		var head = document.getElementsByTagName("head")[0];
+		var script = document.createElement("script");
+        script.type = "text/javascript";
+        script.src = "json2.js";
+        head.appendChild(script);
+	}
+}
+
 // -----------------------------------------------------------------------------
 // tab 1
 
 function updateBrowser() {
-    var input = document.getElementById("location");
-    frames[0].location = input.value;
+    var input = document.getElementById("location"), url = input.value;
+    if(isValidURL(url) && !isCrossDomain(url)){
+    	frames[0].location = url;
+    }
 }
 
 function openWindow() {
-    var input = document.getElementById("location");
-    var url = input.value;
-    window.open(url);
+    var input = document.getElementById("location"), url = input.value;
+    if(isValidURL(url) && !isCrossDomain(url)){
+    	window.open(url);
+    }
 }
 
 function input_keypress(e) {
@@ -582,15 +612,22 @@ function tab_click(e) {
 // -----------------------------------------------------------------------------
 // reports
 
-function storeButton_click() {
+function storeInfo(message) {
+	var div = document.getElementById('storeDiv');
+	div.innerHTML = new Date() + ': ' + message;
+}
+
+function storeButton_click() {	
     if (inLengthyOperation) {
         return;
     }
 
     beginLengthyOperation();
-
+    
+	storeInfo("Please wait a moment...");
+    
     var request = createRequest();
-    request.open('POST', 'coverage-store.php', true);
+    request.open('POST', 'coverage-store.php', true);    
     request.onreadystatechange = function (event) {
         if (request.readyState === 4) {
             var message;
@@ -609,12 +646,13 @@ function storeButton_click() {
 
             endLengthyOperation();
 
-            var div = document.getElementById('storeDiv');
-            div.appendChild(document.createTextNode(new Date() + ': ' + message));
-            div.appendChild(document.createElement('br'));
+            storeInfo(message);
         }
     };
     request.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
-    if(window.JSON && window.JSON.stringify)
-    	request.send('content=' + encodeURIComponent(JSON.stringify(__coverage__)));
+    
+    setTimeout(function(){
+    	if(window.JSON && window.JSON.stringify)
+        	request.send('content=' + encodeURIComponent(JSON.stringify(__coverage__)));
+    }, 0);
 }

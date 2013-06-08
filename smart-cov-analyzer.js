@@ -20,7 +20,7 @@ void function (window, factory) {
 }(this, function (window) {
     var global, host, location, slice, floor, max, push, join, version, controllerOnLoad;
 
-    version = "1.1.1";
+    version = "1.2.0";
     global = window;
     host = global.document;
     location = global.location;

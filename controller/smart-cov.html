@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7">
 <title>smart-cov</title>
 
 <link rel="stylesheet" type="text/css"
@@ -15,7 +14,7 @@
 </head>
 
 <body onload="body_load();"
-	onresize="body_style_init();">
+	onresize="body_resize();">
 	<div id="mainDiv">
 
 		<div id="headingDiv">
@@ -55,7 +54,7 @@
 			<!-- tab2 -->
 			<div class="TabPage">
 				<div id="summaryDiv"></div>
-				<div id="summaryErrorDiv"></div>
+				<div id="summaryInfoDiv"></div>
 			</div>
 			<!-- tab2 -->
 
@@ -76,7 +75,7 @@
 
 			<!-- tab5 -->
 			<div class="TabPage">
-				<p>This is version 1.1.1 of smart-cov, a JS code coverage tool
+				<p>This is version 1.2.0 of smart-cov, a JS code coverage tool
 					that computes statement, function and branch coverage.</p>
 				<p>
 					See <a target="_blank" href="http://wiki.babel.baidu.com/twiki/bin/view/Com/Test/QA_ge_smartcov">http://wiki.babel.baidu.com/twiki/bin/view/Com/Test/QA_ge_smartcov</a>
