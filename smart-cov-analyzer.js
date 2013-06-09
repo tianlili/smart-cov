@@ -20,7 +20,7 @@ void function (window, factory) {
 }(this, function (window) {
     var global, host, location, slice, floor, max, push, join, version, controllerOnLoad;
 
-    version = "1.2.0";
+    version = "1.2.1";
     global = window;
     host = global.document;
     location = global.location;
@@ -1359,6 +1359,7 @@ void function (window, factory) {
                         	html = this.getWindow("tracker_controller").document.getElementsByTagName("html")[0].outerHTML;
                         html = html.replace('div id="code-detail" class="absolute" style="display: block;">', 'div id="code-detail" class="absolute">');
                         html = html.replace('<li class="dropdown open">', '<li class="dropdown">');
+                        html =html.replace('class=" info"', '');
                         
                         if (XMLHttpRequest) // Firefox, Opera 8.0+, Safari
                         	xhr = new XMLHttpRequest();
