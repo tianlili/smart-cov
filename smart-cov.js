@@ -5,7 +5,7 @@ void function (version, scripts, analyzer, parent) {
     if (/msie/i.test(navigator.userAgent))
         return window.alert("您使用的浏览器相对传统，建议换 chrome/firefox/safari 试试！");
 
-    version = "1.2.1";
+    version = "1.2.2";
 
     scripts = [];
     scripts[0] = "http://127.0.0.1/smart-cov/cache.php?file=./esprima.js";

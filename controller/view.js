@@ -191,7 +191,7 @@ var width = function () {
 
     mapping = {
         index: "5%",
-        name: "40%",
+        name: "35%",
         "cover-statement": "15%",
         "cover-branch": "15%",
         "cover-function": "15%",

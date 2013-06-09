@@ -74,6 +74,10 @@ html {
     position: static;
 }
 
+#code-detail-body{ 
+    position: static;
+}
+
 #fileDiv, #sourceDiv {
     position: static;
 }
