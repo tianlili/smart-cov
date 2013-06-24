@@ -5,13 +5,14 @@ void function (version, scripts, analyzer, parent) {
     if (/msie/i.test(navigator.userAgent))
         return window.alert("您使用的浏览器相对传统，建议换 chrome/firefox/safari 试试！");
 
-    version = "1.2.2";
+    version = "1.3.0";
+    rootUrl = "http://127.0.0.1/smart-cov/";
 
     scripts = [];
-    scripts[0] = "http://127.0.0.1/smart-cov/cache.php?file=./esprima.js";
-    scripts[1] = "http://127.0.0.1/smart-cov/cache.php?file=./escodegen.js";
-    scripts[2] = "http://127.0.0.1/smart-cov/cache.php?file=./instrumenter.js";
-    scripts[3] = "http://127.0.0.1/smart-cov/cache.php?file=./smart-cov-analyzer.js&version=" + version;
+    scripts[0] = rootUrl + "cache.php?file=./esprima.js";
+    scripts[1] = rootUrl + "cache.php?file=./escodegen.js";
+    scripts[2] = rootUrl + "cache.php?file=./instrumenter.js";
+    scripts[3] = rootUrl + "cache.php?file=./smart-cov-analyzer.js&version=" + version;
 
     function load(i) {
         script = document.createElement("script");

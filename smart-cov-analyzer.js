@@ -18,9 +18,9 @@ void function (window, factory) {
     host.TrackerGlobalEvent.fire("TrackerJSLoad");
 
 }(this, function (window) {
-    var global, host, location, slice, floor, max, push, join, version, controllerOnLoad;
+    var global, host, location, slice, floor, max, push, join, version, controllerOnLoad, rootUrl;
 
-    version = "1.2.2";
+    version = "1.3.0";
     global = window;
     host = global.document;
     location = global.location;
@@ -29,6 +29,7 @@ void function (window, factory) {
     join = [].join;
     floor = Math.floor;
     max = Math.max;
+    rootUrl = "http://127.0.0.1/smart-cov/";
 
     var util = host.util = function () {
         var excapeRegx = function () {
@@ -69,7 +70,7 @@ void function (window, factory) {
                 };
             }();
 
-            service = "http://127.0.0.1/smart-cov/proxy.php";
+            service = rootUrl + "proxy.php";
 
             var getProxyUrl = function (url) {
                 url = util.param(service, "url", esc(url));
@@ -997,35 +998,19 @@ void function (window, factory) {
                 controllerTopbar: [
                         "<div id='top-navbar' class='navbar'>",
                         "<div class='navbar-inner'>",
-                        "<button class='close pull-left' action='frame#close'>&times;</button>",
                         "<a class='brand'>smart-cov</a>",
                         "<ul id='top-nav' class='nav pull-left' data-target='pages'>",
                         "<li class='active'><a href='' onclick='return false'>&#20195;&#30721;&#21015;&#34920;</a></li>",
                         "</ul>",
                         "<ul class='nav pull-right'>",
-                        "<li>",
-                        "<button class='report' action='frame#report'>&#21457;&#36865;&#25253;&#21578;</button>",
-                        "<span class='new'>new</span>",
-                        "</li>",
-                        "<li class='dropdown'>",
-                        "<a href='' onclick='return false;' class='dropdown-toggle' data-toggle='dropdown'>",
-                        "&#35270;&#22270;",
-                        "<b class='caret'></b>",
-                        "</a>",
-                        "<ul class='dropdown-menu'>",
-                        "<li><a id='window-mode-trigger' action='frame#toggle' href='#' onclick='return false;'>&#31383;&#21475;&#27169;&#24335;</a></li>",
-                        "<li><a action='frame#close' href='#' onclick='return false;'>&#20851;&#38381;&#25511;&#21046;&#21488;</a></li>",
-                        "</ul>",
-                        "</li>",
-                        "<li class='dropdown'>",
-                        "<a href='' onclick='return false;' class='dropdown-toggle' data-toggle='dropdown'>",
-                        "&#24110;&#21161;",
-                        "<b class='caret'></b>",
-                        "</a>",
-                        "<ul class='dropdown-menu'>",
-                        "<li><a href='#' action='about#open' onclick='return false;'>&#20851;&#20110;...</a></li>",
-                        "</ul>",
-                        "</li>",
+                        "<li><img src='@{rootUrl}controller-resources/images/report.png'/></li>",
+                        "<li><a action='frame#report' href='#' onclick='return false;'>&#21457;&#36865;&#25253;&#21578;</a></li>",
+                        "<li><img src='@{rootUrl}controller-resources/images/window-mode.png' id='window-mode-trigger-img'/></li>",
+                        "<li><a action='frame#toggle' href='#' onclick='return false;' id='window-mode-trigger'>&#31383;&#21475;&#27169;&#24335;</a></li>",
+                        "<li><img src='@{rootUrl}controller-resources/images/about.png'/></li>",
+                        "<li><a action='about#open' href='#' onclick='return false;'>&#20851;&#20110;...</a></li>",
+                        "<li><img src='@{rootUrl}controller-resources/images/close.png'/></li>",
+                        "<li><a action='frame#close' href='#' onclick='return false;' class='lasta'>&#20851;&#38381;</a></li>",
                         "</ul>",
                         "</div>",
                         "</div>",
@@ -1147,13 +1132,13 @@ void function (window, factory) {
 
                 codeListTotal: [
                         "<tr class='total'>",
-                        "<td><div class='ellipsisable' style='width: @{widthIndex}px;'>0</div></td>",
-                        "<td><div class='ellipsisable' style='width: @{widthName}px;'>Total</div></td>",
-                        "<td><div class='ellipsisable' style='width: @{widthType}px;'>-</div></td>",
-                        "<td><div id='code-total-coverStatement' class='ellipsisable' style='width: @{widthCoverStatement}px;'>@{coverStatementTotal}</div></td>",
-                        "<td><div id='code-total-coverBranch' class='ellipsisable' style='width: @{widthCoverBranch}px;'>@{coverBranchTotal}</div></td>",
-                        "<td><div id='code-total-coverFunction' class='ellipsisable' style='width: @{widthCoverFunction}px;'>@{coverFunctionTotal}</div></td>",
-                        "<td><div id='code-total-coverStatementGraph' class='ellipsisable' style='width: @{widthCoverStatementGraph}px;'><div class='pctGraph'><div class='covered' style='width: @{coverStatementGraphTotal}px;'></div></div></div></td>",
+                        "<td><div style='width: @{widthIndex}px;'>0</div></td>",
+                        "<td><div style='width: @{widthName}px;'>Total</div></td>",
+                        "<td><div style='width: @{widthType}px;'>-</div></td>",
+                        "<td><div id='code-total-coverStatement' style='width: @{widthCoverStatement}px;'>@{coverStatementTotal}</div></td>",
+                        "<td><div id='code-total-coverBranch' style='width: @{widthCoverBranch}px;'>@{coverBranchTotal}</div></td>",
+                        "<td><div id='code-total-coverFunction' style='width: @{widthCoverFunction}px;'>@{coverFunctionTotal}</div></td>",
+                        "<td><div id='code-total-coverStatementGraph' style='width: @{widthCoverStatementGraph}px;'><div class='pctGraph'><div class='covered' style='width: @{coverStatementGraphTotal}px;'></div></div></div></td>",
                         "<td></td>",
                         "</tr>"
                 ].join(""),
@@ -1161,7 +1146,7 @@ void function (window, factory) {
                 codeListLine: [
                         "<tr data-code-id='@{id}'>",
                         "<td><div class='ellipsisable' style='width: @{widthIndex}px;'>@{index}</div></td>",
-                        "<td><div class='ellipsisable' style='width: @{widthName}px;'>@{fileName}</div></td>",
+                        "<td><div class='ellipsisable' style='width: @{widthName}px;' title='&#28857;&#20987;&#26597;&#30475;&#35814;&#24773;'>@{fileName}</div></td>",
                         "<td><div class='ellipsisable' style='width: @{widthType}px;'>@{type}</div></td>",
                         "<td><div id='code-@{id}-coverStatement' class='ellipsisable' style='width: @{widthCoverStatement}px;'>@{coverStatement}</div></td>",
                         "<td><div id='code-@{id}-coverBranch' class='ellipsisable' style='width: @{widthCoverBranch}px;'>@{coverBranch}</div></td>",
@@ -1251,6 +1236,36 @@ void function (window, factory) {
                     }
                 }
             }(),
+            
+            Prompt: function () {
+            	var layer;
+            	
+                var create = function () {
+                    var host, body;
+
+                    host = View.ControlFrame.getWindow("tracker_page").document;
+                    body = host.body;
+
+                    layer = util.makeElement("div", "position: fixed; padding: 20px; border-radius: 10px; background: rgba(0,0,0,.75); font-size: 20px; line-height: 20px; text-align: center; color: #fff; bottom: 50px; left: 38%; box-shadow: 0 2px 5px #000; z-index: 65535; font-family: 'Courier New', 'Heiti SC', 'Microsoft Yahei';");
+                    layer.innerHTML = "&#28857;&#20987;&#20070;&#31614;&#21487;&#37325;&#26032;&#25171;&#24320;smart-cov";
+                    body.appendChild(layer);
+                    host.documentElement.scrollTop = body.scrollTop = 0;
+                };
+
+                return {
+                    show: function () {
+                        if (!layer)
+                            create();
+                        else
+                            layer.style.display = "block";
+                    },
+
+                    hide: function () {
+                        if (layer)
+                            layer.style.display = "none";
+                    }
+                }
+            }(),
 
             ControlFrame: function () {
                 var document = window.document,
@@ -1321,6 +1336,9 @@ void function (window, factory) {
                     },
 
                     hide: function (close) {
+//                    	var img = document.createElement("img");
+//                    	img.src = "http://localhost/smart-cov/controller-resources/images/about.png";
+//                        this.getWindow("tracker_page").document.body.appendChild(img);
                         var frameset, frame;
 
                         if (currentMode === "embed")
@@ -1373,7 +1391,7 @@ void function (window, factory) {
                             }
                         }
 
-                    	xhr.open("POST", "http://127.0.0.1/smart-cov/report/coverage-store.php", true);
+                    	xhr.open("POST", rootUrl + "report/coverage-store.php", true);
                     	xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
                        
                         timer = setTimeout(function () {
@@ -1882,13 +1900,13 @@ void function (window, factory) {
 
                         var setup = function (el) {
 
-                            var dropdownMenu = el.querySelector(".dropdown-menu");
-
-                            Event.add(dropdownMenu, "click", function (e) {
-                                util.removeClass(el, "open");
-                                lastOpen = null;
-                                e.stopPropagation();
-                            });
+//                            var dropdownMenu = el.querySelector(".dropdown-menu");
+//
+//                            Event.add(dropdownMenu, "click", function (e) {
+//                                util.removeClass(el, "open");
+//                                lastOpen = null;
+//                                e.stopPropagation();
+//                            });
 
                             Event.add(el, "click", function (e) {
                                 util.addClass(el, "open");
@@ -2137,10 +2155,10 @@ void function (window, factory) {
                         util.delay(function () {
                             pm.resolve(util.format(View.templates.controllerPage, withWidths({
                                 charset: global.document.characterSet || "utf-8",
-                                cachePhp: "http://127.0.0.1/smart-cov/cache.php?file=",
+                                cachePhp: rootUrl + "cache.php?file=",
 
                                 // css: View.templates.controllerCSS,
-                                header: View.templates.controllerTopbar,
+                                header: util.format(View.templates.controllerTopbar, {rootUrl: rootUrl}),
 
                                 codeList: util.format(View.templates.controllerCodeList, withWidths()),
                                 codeDetail: View.templates.controllerCodeDetail,
@@ -2251,10 +2269,14 @@ void function (window, factory) {
                                 document.getElementById("dialog-about").style.display = "block";
                         };
 
-                        if (View.ControlFrame.getMode() == "window")
-                            document.getElementById("window-mode-trigger").innerHTML =
+                        if (View.ControlFrame.getMode() == "window"){
+                        	document.getElementById("window-mode-trigger").innerHTML =
                                 "&#24182;&#21015;&#27169;&#24335;";
+                        	document.getElementById("window-mode-trigger-img").src = 
+                        		document.getElementById("window-mode-trigger-img").src.replace("window-mode", "frame-mode");
 
+                        }
+                        
                         var lastScrollLeft = 0;
                         Event.add(elementCodeContent, "scroll", function () {
                             if (lastScrollLeft == this.scrollLeft)
@@ -2983,7 +3005,7 @@ void function (window, factory) {
 
         controllerOnLoad = promise.fuze();
         host.TrackerGlobalEvent = Event.bind();
-        //pluginsUrlBase = "http://127.0.0.1/smart-cov/cache.php?file=./plugins/";
+        //pluginsUrlBase = rootUrl + "cache.php?file=./plugins/";
 
         hookDebuggingCode = function (content, code) {
             return "__trackerScriptStart__('" + code.id + "');" + content +
@@ -3124,6 +3146,10 @@ void function (window, factory) {
 
         View.ControlFrame.on("hide", function () {
             clearInterval(updateInterval);
+            View.Prompt.show();
+            setTimeout(function(){
+            	View.Prompt.hide();
+            }, 3000);
         });
 
         View.ControlFrame.on("show", function () {
