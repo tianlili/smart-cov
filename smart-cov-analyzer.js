@@ -1259,6 +1259,10 @@ void function (window, factory) {
                             create();
                         else
                             layer.style.display = "block";
+                        
+                        setTimeout(function(){
+                        	View.Prompt.hide();
+                        }, 3000);
                     },
 
                     hide: function () {
@@ -3159,14 +3163,18 @@ void function (window, factory) {
 
             if (currentCodeId)
                 View.ControlPanel.showCodeDetail(currentCodeId);
+            
+            if(View.ControlFrame.getMode() == "window"){
+            	window.onbeforeunload = function(){
+	            	View.Prompt.show();
+	            }
+            }
         });
 
         View.ControlFrame.on("hide", function () {
             clearInterval(updateInterval);
-            View.Prompt.show();
-            setTimeout(function(){
-            	View.Prompt.hide();
-            }, 3000);
+            if(View.ControlFrame.getMode() == "embed")
+            	View.Prompt.show();
         });
 
         View.ControlFrame.on("show", function () {
