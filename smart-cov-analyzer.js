@@ -1388,7 +1388,7 @@ void function (window, factory) {
                         xhr.onreadystatechange = function() {
                             if (xhr.readyState == 4) {
                             	clearTimeout(timer);
-                            	document.location="mailto:tianlili@baidu.com?body=http://127.0.0.1/smart-cov/report/data/" + time + ".html (Please open with Chrome/Safari/Firefox)";
+                            	document.location="mailto: ?body=http://127.0.0.1/smart-cov/report/data/" + time + ".html (Please open with Chrome/Safari/Firefox)";
                             }
                         }
 
