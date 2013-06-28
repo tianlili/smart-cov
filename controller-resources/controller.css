@@ -39,7 +39,7 @@ table.compact-width th{ padding: 8px 5px; }
 .close-button-like .close{ opacity:.5; }
 .new{ color: red; font-style:italic; font-size:12px; padding: 0px 15px 0px 0px; }
 
-.navbar .pull-right>li>img { padding: 10px 3px 10px 0px; }
+.navbar .pull-right>li>img { padding: 10px 3px 10px 0px; cursor:pointer; }
 .navbar .pull-right>li>a { padding: 10px 20px 10px 0px; }
 .lasta { padding-right: 0px; }
 
