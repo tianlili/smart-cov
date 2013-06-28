@@ -2914,9 +2914,9 @@ void function (window, factory) {
             // code.lastModified = util.time();
         };
 
-        window.onbeforeunload = function () {
+        window.addEventListener("beforeunload", function () {
             View.ControlFrame.getWindow("tracker_controller").close();
-        };
+        });
     };
 
     // var Tracker = function( host ){
@@ -3165,9 +3165,9 @@ void function (window, factory) {
                 View.ControlPanel.showCodeDetail(currentCodeId);
             
             if(View.ControlFrame.getMode() == "window"){
-            	window.onbeforeunload = function(){
+            	window.addEventListener("beforeunload", function(){
 	            	View.Prompt.show();
-	            }
+	            });
             }
         });
 
