@@ -2911,8 +2911,7 @@ void function (window, factory) {
         };
 
         window.onbeforeunload = function () {
-            var now = util.time();
-            while (util.time() - now < 500);
+            View.ControlFrame.getWindow("tracker_controller").close();
         };
     };
 
