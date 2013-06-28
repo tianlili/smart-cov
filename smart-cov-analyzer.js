@@ -1351,8 +1351,10 @@ void function (window, factory) {
                         frame = frameset.getElementsByTagName("frame")[1],
                         frameset.rows = "*,0",
                         frame.noResize = true;
-                        else if (currentMode === "window")
-                            controlWindow.close();
+                        else if (currentMode === "window"){
+                        	closeByButton = true;
+                        	controlWindow.close();
+                        }
 
                         this.state = "hide";
                         if(close)
@@ -1392,7 +1394,7 @@ void function (window, factory) {
                         xhr.onreadystatechange = function() {
                             if (xhr.readyState == 4) {
                             	clearTimeout(timer);
-                            	document.location="mailto: ?body=http://127.0.0.1/smart-cov/report/data/" + time + ".html (Please open with Chrome/Safari/Firefox)";
+                            	document.location="mailto: ?body=http://10.48.32.115:8088/smart-cov/report/data/" + time + ".html (Please open with Chrome/Safari/Firefox)";
                             }
                         }
 
@@ -1476,6 +1478,7 @@ void function (window, factory) {
                             left = 100,
                             top = 100,
                             controller;
+                        closeByButton = false;
 
                         controlWindow = window.open("about:blank", "", "width=" + width +
                             ", height=" + height + ", left=" + left + ", top=" + top +
@@ -3166,15 +3169,16 @@ void function (window, factory) {
             
             if(View.ControlFrame.getMode() == "window"){
             	window.addEventListener("beforeunload", function(){
-	            	View.Prompt.show();
+            		if(!closeByButton)
+            			View.Prompt.show();
 	            });
             }
         });
 
         View.ControlFrame.on("hide", function () {
             clearInterval(updateInterval);
-            if(View.ControlFrame.getMode() == "embed")
-            	View.Prompt.show();
+            //点关闭按钮触发
+            View.Prompt.show();
         });
 
         View.ControlFrame.on("show", function () {
