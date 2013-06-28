@@ -1004,13 +1004,13 @@ void function (window, factory) {
                         "<li class='active'><a href='' onclick='return false'>&#20195;&#30721;&#21015;&#34920;</a></li>",
                         "</ul>",
                         "<ul class='nav pull-right'>",
-                        "<li><img src='@{rootUrl}controller-resources/images/report.png'/></li>",
+                        "<li><img action='frame#report' src='@{rootUrl}controller-resources/images/report.png'/></li>",
                         "<li><a action='frame#report' href='#' onclick='return false;'>&#21457;&#36865;&#25253;&#21578;</a></li>",
-                        "<li><img src='@{rootUrl}controller-resources/images/window-mode.png' id='window-mode-trigger-img'/></li>",
+                        "<li><img action='frame#toggle' src='@{rootUrl}controller-resources/images/window-mode.png' id='window-mode-trigger-img'/></li>",
                         "<li><a action='frame#toggle' href='#' onclick='return false;' id='window-mode-trigger'>&#31383;&#21475;&#27169;&#24335;</a></li>",
-                        "<li><img src='@{rootUrl}controller-resources/images/about.png'/></li>",
+                        "<li><img action='about#open' src='@{rootUrl}controller-resources/images/about.png'/></li>",
                         "<li><a action='about#open' href='#' onclick='return false;'>&#20851;&#20110;...</a></li>",
-                        "<li><img src='@{rootUrl}controller-resources/images/close.png'/></li>",
+                        "<li><img action='frame#close' src='@{rootUrl}controller-resources/images/close.png'/></li>",
                         "<li><a action='frame#close' href='#' onclick='return false;' class='lasta'>&#20851;&#38381;</a></li>",
                         "</ul>",
                         "</div>",
@@ -1369,7 +1369,7 @@ void function (window, factory) {
                         Feedback.setPanelMode(currentMode);
                     },
                     
-                    report: function() {
+                    report: function() {debugger
                 		function transDate() {
                     		return new Date().getFullYear()+ "." + (new Date().getMonth() + 1) + "." + new Date().getDate() + "-" + new Date().getHours() + "." + new Date().getMinutes() + "." +　new Date().getSeconds()
                     	}
@@ -1388,7 +1388,7 @@ void function (window, factory) {
                         xhr.onreadystatechange = function() {
                             if (xhr.readyState == 4) {
                             	clearTimeout(timer);
-                            	document.location="mailto:tianlili@baidu.com;?body=http://127.0.0.1/smart-cov/report/data/" + time + ".html (Please open with Chrome/Safari/Firefox)";
+                            	document.location="mailto:tianlili@baidu.com?body=http://127.0.0.1/smart-cov/report/data/" + time + ".html (Please open with Chrome/Safari/Firefox)";
                             }
                         }
 
