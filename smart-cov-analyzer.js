@@ -958,6 +958,7 @@ void function (window, factory) {
                         "<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Frameset//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd'>",
                         "<html>",
                         "<head>",
+                        "<link rel='Bookmark' href='favicon.ico'>",
                         "<meta charset='@{charset}'>",
                         "<meta name='description' content='smart-cov-frame'>",
                         "<title>@{title}</title>",
@@ -1426,6 +1427,9 @@ void function (window, factory) {
                             if (!controllerHtml)
                                 controllerHtml = pageHtml,
                             pageHtml = null;
+                            
+                            //去掉body的onresize
+                            resizefunc = host.body.onresize;
 
                             if (pageHtml) {
                                 window.name = "tracker_main";
@@ -1434,6 +1438,13 @@ void function (window, factory) {
                                     title: document.title,
                                     charset: document.characterSet || "utf-8"
                                 }));
+                                
+                                //去掉body的onresize
+                                var btag = pageHtml.match(/<[]*body/)[0];
+                                var length = btag.length;
+                                var pos = pageHtml.indexOf(btag) + length;
+                                pageHtml = pageHtml.substring(0, pos) + ' onresize=null; ' + pageHtml.substring(pos);
+                                
                                 this.write("tracker_page", pageHtml);
                                 page = this.getWindow("tracker_page");
 
@@ -2868,7 +2879,7 @@ void function (window, factory) {
         };
 
         window.__trackerScriptStart__ = function (codeId, scriptTagIndex) {
-            var script, code;
+            var script, code, timer;
 
             script = scriptTagIndex === undefined ?
                 scriptElements[scriptElements.length - 1] :
@@ -2877,10 +2888,12 @@ void function (window, factory) {
             if (script && script.hasAttribute("tracker-src"))
                 script.src = script.getAttribute("tracker-src");
 
-            setTimeout(function () {
-                if (script.onreadystatechange)
-                    script.onreadystatechange();
-            }, 0);
+            if (script.onreadystatechange){
+            	timer = script.onreadystatechange.toString().indexOf('removeChild') >= 0 ? 5000 : 0; 
+                setTimeout(function () {
+                	script.onreadystatechange();
+                }, timer);
+            }
 
             code = CodeList.get(codeId);
             // code._startTime = new Date();
@@ -3128,6 +3141,11 @@ void function (window, factory) {
 //            head = document.head || document.getElementsByTagName("head")[0];
 //            base.setAttribute("target", "tracker_main");
 //            head.appendChild(base);
+        	
+        	//还原body的onresize
+        	setTimeout(function(){
+        		document.body.onresize = resizefunc;
+        	}, 3000);
 
             Event.add(window, "unload", function () {
                 location.assign(location.href);
