@@ -1121,7 +1121,7 @@ void function (window, factory) {
                         "<div class='modal-footer'>",
                         "<a href='#' onclick='return false;' class='btn btn-primary'>&#30830;&#23450;</a>",
                         "</div>",
-                        "</div>",
+                        "</div>"
                 ].join(""),
 
                 controllerGlobalLoading: [
@@ -1375,7 +1375,7 @@ void function (window, factory) {
                         Feedback.setPanelMode(currentMode);
                     },
                     
-                    report: function() {debugger
+                    report: function() {
                 		function transDate() {
                     		return new Date().getFullYear()+ "." + (new Date().getMonth() + 1) + "." + new Date().getDate() + "-" + new Date().getHours() + "." + new Date().getMinutes() + "." +　new Date().getSeconds()
                     	}
@@ -2392,7 +2392,7 @@ void function (window, factory) {
 
             setPanelMode: function (mode) {
                 panelMode = mode;
-            },
+            }
 
             // setAnalysisEnd: function(){
             // analysisTime = ( ( util.time() - startTime ) / 1000 ).toFixed( 1 ) + "s";
@@ -3188,7 +3188,7 @@ void function (window, factory) {
         View.ControlPanel.actions({
             "frame#close": util.bind(View.ControlFrame.hide, View.ControlFrame),
             "frame#toggle": util.bind(View.ControlFrame.toggleMode, View.ControlFrame),
-            "frame#report": util.bind(View.ControlFrame.report, View.ControlFrame),
+            "frame#report": util.bind(View.ControlFrame.report, View.ControlFrame)
         });
 
         host.TrackerGlobalEvent.on("TrackerJSLoad", function () {
