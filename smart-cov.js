@@ -14,7 +14,7 @@ void function (version, scripts, analyzer, parent) {
     scripts[2] = rootUrl + "cache.php?file=./instrumenter.js";
     scripts[3] = rootUrl + "cache.php?file=./smart-cov-analyzer.js&version=" + version;
 
-    function load(i) {debugger
+    function load(i) {
         script = document.createElement("script");
         script.type = "text/javascript";
         script.src = scripts[i];
