@@ -1,6 +1,6 @@
 {
   "name": "smart-cov",
-  "version": "1.3.1",
+  "version": "1.3.3",
   "description": "JS code coverage tool that computes statement, function and branch coverage",
   "keywords": [
     "coverage",

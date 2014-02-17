@@ -14,7 +14,7 @@ void function (root, factory) {
 
     // Universal Module Definition (UMD) to support AMD, CommonJS/Node.js,
     // Rhino, and plain browser loading.
-    if (typeof define === 'function' && define.amd) {
+    if (typeof define === 'function' && define.amd && typeof window == 'undefined') {
         define(['exports'], factory);
     } else if (typeof exports !== 'undefined') {
         factory(exports);
