@@ -1377,7 +1377,7 @@ void function (window, factory) {
                     
                     report: function() {
                 		function transDate() {
-                    		return new Date().getFullYear()+ "." + (new Date().getMonth() + 1) + "." + new Date().getDate() + "-" + new Date().getHours() + "." + new Date().getMinutes() + "." +　new Date().getSeconds()
+                    		return new Date().getFullYear()+ "." + (new Date().getMonth() + 1) + "." + new Date().getDate() + "-" + new Date().getHours() + "." + new Date().getMinutes() + "." + new Date().getSeconds();
                     	}
                 		
                         var xhr, time = transDate(), timeout = 10e3, timer,

@@ -16,7 +16,7 @@ void function (root, factory) {
     // Rhino, and plain browser loading.
     if (typeof define === 'function' && define.amd && typeof window == 'undefined') {
         define(['exports'], factory);
-    } else if (typeof exports !== 'undefined') {
+    } else if (typeof exports !== 'undefined' && typeof window == 'undefined') {
         factory(exports);
     } else {
         factory((root.esprima = root.document.esprima = {}));
